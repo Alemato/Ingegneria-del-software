@@ -9,6 +9,6 @@
 ###### Altri Metodi:
 * metodo di modifica dello stato dei sensori di un robot
 * metodo di creazione xml 
+* metodo di comunicazione 
 
 ## da sviluppare ancora:
-* metodo di comunicazione 
