@@ -1,6 +1,6 @@
 class Area:
     def __init__(self, id_area):
-        self.IDArea = id_area
+        self.IDArea = "A" + str(id_area)
         self.Number_of_cluster = None
         self.Cluster = []
 
@@ -15,7 +15,7 @@ class Area:
 
 class Cluster:
     def __init__(self, id_cluster):
-        self.IDCluster = id_cluster
+        self.IDCluster = "C" + str(id_cluster)
         self.Number_of_robot = None
         self.Robot = []
 
@@ -30,10 +30,11 @@ class Cluster:
 
 class Robot:
     def __init__(self, id_robot):
-        self.IDRobot = id_robot
+        self.IDRobot = "R" + str(id_robot)
         self.Sensors = {'S1': 1, 'S2': 1, 'S3': 1, 'S4': 1, 'S5': 1, 'S6': 1, 'S7': 1}
 
     def change_sensor_status(self, id_sensor):
+        print(id_sensor + " : " + str(self.Sensors[id_sensor]))
         if self.Sensors[id_sensor] == 1:
             self.Sensors[id_sensor] = 0
         else:
