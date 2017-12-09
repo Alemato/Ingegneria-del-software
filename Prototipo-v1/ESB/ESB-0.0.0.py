@@ -17,8 +17,8 @@ def tipico():
     Area[0].set_cluster(total_cluster_tipoco, starting_number_cluster)
     for c in range(len(Area[0].Cluster)):
         starting_number_robot = Area[0].Cluster[c].set_robot(total_robot_per_cluster_tipico, starting_number_robot)
-    print('Ultimo robot di questa area (' + str(0) + ') ultimo cluster (' + str(starting_number_cluster) + ') : ',
-          Area[0].Cluster[c].Robot[Area[0].Cluster[c].Number_of_robot - 1].IDRobot)
+    #print('Ultimo robot di questa area (' + str(0) + ') ultimo cluster (' + str(starting_number_cluster) + ') : ',
+          #Area[0].Cluster[c].Robot[Area[0].Cluster[c].Number_of_robot - 1].IDRobot)
 
 
 # Creazione oggetti in modo custum randomico
@@ -110,28 +110,28 @@ def custum():
 def messaggio():
     ### Cambio di Stato ###
     numb_area = len(Area)
-    print('Area e di : ',numb_area)
+    #print('Area e di : ',numb_area)
     if (numb_area - 1) == 0 or (numb_area - 1) < 0:
         area = 0
     else:
         area = random.randint(0, numb_area - 1)
-    print('Area random: ', area)
+    #print('Area random: ', area)
     numb_cluster = len(Area[area].Cluster)
-    print('Cluster e di : ', numb_cluster)
+    #print('Cluster e di : ', numb_cluster)
     if (numb_cluster - 1) == 0 or (numb_cluster - 1) < 0:
         cluster = 0
     else:
         cluster = random.randint(0, numb_cluster - 1)
-    print('Cluster random : ', numb_cluster)
+    #print('Cluster random : ', numb_cluster)
     numb_robot = len(Area[area].Cluster[cluster].Robot)
-    print('Robot e di : ', numb_robot)
+    #print('Robot e di : ', numb_robot)
     if (numb_robot - 1) == 0 or (numb_robot - 1) < 0:
         robot = 0
     else:
         robot = random.randint(0, numb_robot - 1)
-    print('robot random : ', robot)
+    #print('robot random : ', robot)
     sensor = random.randint(1, 7)
-    print('il sensore e: ', sensor)
+    #print('il sensore e: ', sensor)
     Area[area].Cluster[cluster].Robot[robot].change_sensor_status("S" + str(sensor))
 
     ### Creazione del messaggio ###
@@ -166,8 +166,8 @@ def invio():
 def main():
     tipico()
     volte = 0
-    while volte < 1500:
+    while volte < 90000:
         volte = volte + 1
-        print(messaggio())
+        #print(messaggio())
 
 profile.run('main()')
