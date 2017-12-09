@@ -1,12 +1,9 @@
 from xml.etree.ElementTree import *
 from xml.etree import ElementTree
-from xml.dom import minidom
+import requests
 import random
 import System
 
-total_robot = 90000
-
-total_robot_per_cluster_tipico = 900
 Area = []
 
 
@@ -137,22 +134,12 @@ def custum():
         print('Ultimo robot di questa area (' + str(a) + ') ultimo cluster (' + str(starting_number_cluster) + ') : ',
               Area[a].Cluster[c].Robot[Area[a].Cluster[c].Number_of_robot - 1].IDRobot)
 
-
-# custum()
-
-# tipico()
-
-# custom_randomico()
-
-tipico_randomico()
-
-
 ################################ CREAZIONE MSG ##########################################
 
 
 def messaggio():
     ### Cambio di Stato ###
-    if len(Area)-1 == 0:
+    if len(Area) - 1 == 0:
         area = 0
     else:
         area = random.randint(0, len(Area) - 1)
@@ -181,8 +168,22 @@ def messaggio():
         namesensor = 'S' + str(i + 1)
         namesensostag = SubElement(sensorstag, namesensor)
         namesensostag.text = str(Area[area].Cluster[cluster].Robot[robot].Sensors[namesensor])
-    print(tostring(msg))
-    file = ElementTree.ElementTree(msg)
-    file.write("esempio-messaggio.xml")
+    messaggio_text = tostring(msg)
+    #file = ElementTree.ElementTree(msg)
+    #file.write("esempio-messaggio.xml")
+    return messaggio_text
 
-messaggio()
+
+################################# INVIO MESSAGGIO #########################################################
+
+
+def invio():
+    r = requests.post("http://localhost:8088/", data=messaggio())
+    print(r.status_code, r.reason)
+
+
+########################################## MAIN PROGRAM ###################################################
+
+tipico_randomico()
+while True:
+    invio()
