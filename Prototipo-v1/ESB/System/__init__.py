@@ -23,8 +23,8 @@ class Cluster:
         id_robot = stating_number_robot
         self.Number_of_robot = number_of_robot
         for r in range(number_of_robot):
-            id_robot = id_robot + 1
             self.Robot.append(Robot(id_robot))
+            id_robot = id_robot + 1
         return id_robot
 
 
@@ -34,7 +34,7 @@ class Robot:
         self.Sensors = {'S1': 1, 'S2': 1, 'S3': 1, 'S4': 1, 'S5': 1, 'S6': 1, 'S7': 1}
 
     def change_sensor_status(self, id_sensor):
-        print(id_sensor + " : " + str(self.Sensors[id_sensor]))
+        #print(id_sensor + " : " + str(self.Sensors[id_sensor]))
         if self.Sensors[id_sensor] == 1:
             self.Sensors[id_sensor] = 0
         else:

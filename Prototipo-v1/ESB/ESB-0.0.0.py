@@ -1,6 +1,6 @@
 from xml.etree.ElementTree import *
 import profile
-#import requests
+# import requests
 import random
 import time
 from System import *
@@ -10,27 +10,24 @@ total_robot = 0
 numb_aree = 0
 starting_number_robot = 0
 starting_number_cluster = 0
+num_cluster = []
+
 
 # Creazione oggetti in modo strettamente tipico
-# def tipico():
-#     starting_number_cluster = 0
-#     starting_number_robot = 0
-#     total_cluster_tipoco = 100
-#     total_robot_per_cluster_tipico = 900
-#     Area.append(System.Area(0))
-#     Area[0].set_cluster(total_cluster_tipoco, starting_number_cluster)
-#     for c in range(len(Area[0].Cluster)):
-#         starting_number_robot = Area[0].Cluster[c].set_robot(total_robot_per_cluster_tipico, starting_number_robot)
-#     #print('Ultimo robot di questa area (' + str(0) + ') ultimo cluster (' + str(starting_number_cluster) + ') : ',
-#           #Area[0].Cluster[c].Robot[Area[0].Cluster[c].Number_of_robot - 1].IDRobot)
+def tipico():
+    global numb_aree, starting_number_cluster, starting_number_robot
+    total_cluster_tipoco = 100
+    total_robot_per_cluster_tipico = 900
+    Aree.append(Area(numb_aree))
+    Aree[numb_aree].set_cluster(total_cluster_tipoco, starting_number_cluster)
+    for c in range(len(Aree[numb_aree].Cluster)):
+        starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(total_robot_per_cluster_tipico,
+                                                                     starting_number_robot)
 
 
 # Creazione oggetti in modo custum randomico
 def tipico_randomico():
-    numb_aree = 0
-    starting_number_robot = 0
-    starting_number_cluster = 0
-    total_robot = 0
+    global numb_aree, starting_number_robot, starting_number_cluster, total_robot, num_cluster
     while total_robot < 90000:
         if total_robot < 50000:
             numb_of_cluster = random.randint(20, 50)
@@ -39,98 +36,124 @@ def tipico_randomico():
             for c in range(numb_of_cluster):
                 numb_of_robot = random.randint(500, 1000)
                 starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
-                #print('Area:', numb_aree, ' Cluster: ', c, ' Robot : ', numb_of_robot)
-                total_robot =total_robot + numb_of_robot
+                # print('Area:', numb_aree, ' Cluster: ', c, ' Robot : ', numb_of_robot)
+                total_robot = total_robot + numb_of_robot
+            num_cluster.append(numb_of_cluster - 1)
             numb_aree = numb_aree + 1
         else:
-            #print('-------------------------------')
-            #print('numero di robot : ', total_robot)
-            #print('-------------------------------')
-            break
-
-    return total_robot
-
-
-
-
-# Creazione oggetti in modo custum randomico
-# def custom_randomico():
-#     starting_number_cluster = 0
-#     starting_number_robot = 0
-#     aree = random.randint(1, 3)  #######################################
-#     for a in range(aree):
-#         number_of_cluster = random.randint(1, 100)  #######################################
-#         Area.append(System.Area(a))
-#         starting_number_cluster = Area[a].set_cluster(number_of_cluster, starting_number_cluster)
-#         for c in range(len(Area[a].Cluster)):
-#             number_of_robot = random.randint(1, 900)  #########################################
-#             starting_number_robot = Area[a].Cluster[c].set_robot(number_of_robot, starting_number_robot)
-#         print('Ultimo robot di questa area (' + str(a) + ') ultimo cluster (' + str(starting_number_cluster) + ') : ',
-#               Area[a].Cluster[c].Robot[Area[a].Cluster[c].Number_of_robot - 1].IDRobot)
+            numb_remainder = 90000 - total_robot
+            max_numb_of_cluster_remainder = numb_remainder / 600
+            min_numb_of_cluster_remainder = numb_remainder / 900
+            numb_of_cluster = random.randint(min_numb_of_cluster_remainder, max_numb_of_cluster_remainder)
+            Aree.append(Area(numb_aree))
+            num_cluster.append(numb_of_cluster - 1)
+            starting_number_cluster = Aree[numb_aree].set_cluster(numb_of_cluster, starting_number_cluster)
+            numb_of_cluster_remainder = numb_of_cluster
+            for c in range(numb_of_cluster):
+                if numb_of_cluster_remainder > 10:
+                    if int((numb_remainder / numb_of_cluster_remainder) / 1.25) != int(
+                            numb_remainder / numb_of_cluster_remainder):
+                        numb_of_robot = random.randint(int((numb_remainder / numb_of_cluster_remainder) / 1.25),
+                                                       numb_remainder / numb_of_cluster_remainder)
+                    else:
+                        numb_of_robot = numb_remainder / numb_of_cluster
+                    starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
+                    # print('Area:', numb_aree, ' Cluster: ', c, ' Robot : ', numb_of_robot)
+                    total_robot = total_robot + numb_of_robot
+                    numb_remainder = 90000 - total_robot
+                    numb_of_cluster_remainder = numb_of_cluster_remainder - 1
+                else:
+                    numb_of_robot = numb_remainder / numb_of_cluster_remainder
+                    starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
+                    total_robot = total_robot + numb_of_robot
+                    numb_remainder = 90000 - total_robot
+                    numb_of_cluster_remainder = numb_of_cluster_remainder - 1
+            # print(total_robot)
 
 
 # Creazione oggetti in modo custum
-# def custum():
-#     starting_number_cluster = 0
-#     starting_number_robot = 0
-#     aree = input('Inserisci il numero di Aree:  ')
-#     for a in range(aree):
-#         number_of_cluster = input('Inserisci il numero di cluster per Area numero ' + str(a) + ':  ')
-#         Area.append(System.Area(a))
-#         starting_number_cluster = Area[a].set_cluster(number_of_cluster, starting_number_cluster)
-#         for c in range(len(Area[a].Cluster)):
-#             number_of_robot = input('Inserisci il numero di robot per il Cluster numero ' + str(c) + ': ')
-#             starting_number_robot = Area[a].Cluster[c].set_robot(number_of_robot, starting_number_robot)
-#         print('Ultimo robot di questa area (' + str(a) + ') ultimo cluster (' + str(starting_number_cluster) + ') : ',
-#               Area[a].Cluster[c].Robot[Area[a].Cluster[c].Number_of_robot - 1].IDRobot)
+def custum():
+    global starting_number_cluster, starting_number_robot, numb_aree
+    numb_aree = input('Inserisci il numero di Aree:  ')
+    for a in range(aree):
+        number_of_cluster = input('Inserisci il numero di cluster per Area numero ' + str(a) + ':  ')
+        Aree.append(Area(a))
+        starting_number_cluster = Aree[a].set_cluster(number_of_cluster, starting_number_cluster)
+        for c in range(len(Aree[a].Cluster)):
+            number_of_robot = input('Inserisci il numero di robot per il Cluster numero ' + str(c) + ': ')
+            starting_number_robot = Aree[a].Cluster[c].set_robot(number_of_robot, starting_number_robot)
+        print('Ultimo robot di questa area (' + str(a) + ') ultimo cluster (' + str(starting_number_cluster) + ') : ',
+              Aree[a].Cluster[c].Robot[Aree[a].Cluster[c].Number_of_robot - 1].IDRobot)
+
 
 ################################ CREAZIONE MSG ##########################################
 
 
 def messaggio():
+    global numb_aree, num_cluster
     ### Cambio di Stato ###
-    numb_area = len(Area)
-    #print('Area e di : ',numb_area)
-    if (numb_area - 1) == 0 or (numb_area - 1) < 0:
-        area = 0
-    else:
-        area = random.randint(0, numb_area - 1)
-    #print('Area random: ', area)
-    numb_cluster = len(Area[area].Cluster)
-    #print('Cluster e di : ', numb_cluster)
-    if (numb_cluster - 1) == 0 or (numb_cluster - 1) < 0:
-        cluster = 0
-    else:
-        cluster = random.randint(0, numb_cluster - 1)
-    #print('Cluster random : ', numb_cluster)
-    numb_robot = len(Area[area].Cluster[cluster].Robot)
-    #print('Robot e di : ', numb_robot)
+    # print('Area e di : ',numb_area)
+    area = random.randint(0, numb_aree)
+    # print('Area random: ', area)
+    # print('Cluster e di : ', numb_cluster)
+    cluster = random.randint(0, num_cluster[area])
+    # print('Cluster random : ', cluster)
+    numb_robot = len(Aree[area].Cluster[cluster].Robot)
+    # print('Robot e di : ', numb_robot)
     if (numb_robot - 1) == 0 or (numb_robot - 1) < 0:
         robot = 0
     else:
         robot = random.randint(0, numb_robot - 1)
-    #print('robot random : ', robot)
+    # print('robot random : ', robot)
     sensor = random.randint(1, 7)
-    #print('il sensore e: ', sensor)
-    Area[area].Cluster[cluster].Robot[robot].change_sensor_status("S" + str(sensor))
+    # print('il sensore e: ', sensor)
+    Aree[area].Cluster[cluster].Robot[robot].change_sensor_status("S" + str(sensor))
 
     ### Creazione del messaggio ###
     msg = Element('Msg')
     robotag = SubElement(msg, 'Robot')
     areatag = SubElement(robotag, 'ID_Area')
-    areatag.text = Area[area].IDArea
+    areatag.text = Aree[area].IDArea
     clustertag = SubElement(robotag, 'ID_Cluster')
-    clustertag.text = Area[area].Cluster[cluster].IDCluster
+    clustertag.text = Aree[area].Cluster[cluster].IDCluster
     robotnametag = SubElement(robotag, 'Name_of_Robot')
-    robotnametag.text = Area[area].Cluster[cluster].Robot[robot].IDRobot
+    robotnametag.text = Aree[area].Cluster[cluster].Robot[robot].IDRobot
     sensorstag = SubElement(robotag, 'Sensors')
     for i in range(7):
         namesensor = 'S' + str(i + 1)
         namesensostag = SubElement(sensorstag, namesensor)
-        namesensostag.text = str(Area[area].Cluster[cluster].Robot[robot].Sensors[namesensor])
+        namesensostag.text = str(Aree[area].Cluster[cluster].Robot[robot].Sensors[namesensor])
     messaggio_text = tostring(msg)
-    #file = ElementTree.ElementTree(msg)
-    #file.write("esempio-messaggio.xml")
+    # file = ElementTree.ElementTree(msg)
+    # file.write("esempio-messaggio.xml")
+    return messaggio_text
+
+
+def messaggio_stringa():
+    global numb_aree, num_cluster
+    ### Cambio di Stato ###
+    area = random.randint(0, numb_aree)
+    cluster = random.randint(0, num_cluster[area])
+    numb_robot = len(Aree[area].Cluster[cluster].Robot)
+    if (numb_robot - 1) == 0 or (numb_robot - 1) < 0:
+        robot = 0
+    else:
+        robot = random.randint(0, numb_robot - 1)
+    sensor = random.randint(1, 7)
+    Aree[area].Cluster[cluster].Robot[robot].change_sensor_status("S" + str(sensor))
+
+    ### Creazione del messaggio ###
+    messaggio_text = '<Msg><Robot><ID_Area>' + Aree[area].IDArea + '</ID_Area><ID_Cluster>' + Aree[area].Cluster[
+        cluster].IDCluster + '</ID_Cluster><Name_of_Robot>' + Aree[area].Cluster[cluster].Robot[
+                         robot].IDRobot + '</Name_of_Robot><Sensors><S1>' + str(
+        Aree[area].Cluster[cluster].Robot[robot].Sensors['S1']) + '</S1><S2>' + str(
+        Aree[area].Cluster[cluster].Robot[robot].Sensors['S2']) + '</S2><S3>' + str(
+        Aree[area].Cluster[cluster].Robot[robot].Sensors['S3']) + '</S3><S4>' + str(
+        Aree[area].Cluster[cluster].Robot[robot].Sensors['S4']) + '</S4><S5>' + str(
+        Aree[area].Cluster[cluster].Robot[robot].Sensors['S5']) + '</S5><S6>' + str(
+        Aree[area].Cluster[cluster].Robot[robot].Sensors['S6']) + '</S6><S7>' + str(
+        Aree[area].Cluster[cluster].Robot[robot].Sensors['S7']) + '</S7></Sensors></Robot></Msg>'
+
     return messaggio_text
 
 
@@ -144,23 +167,23 @@ def invio():
 
 ########################################## MAIN PROGRAM ###################################################
 def main():
-    tipico()
+    tipico_randomico()
     volte = 0
     while volte < 90000:
         volte = volte + 1
-        #print(messaggio())
-
+        messaggio_stringa()
 
 
 def crea():
-    timeout = 3600
+    timeout = 600
     time_start = time.time()
-    numb1 = 0
     while time.time() < time_start + timeout:
-        numb = tipico_randomico()
+        tipico_randomico()
         del Aree[:]
-        if numb > numb1:
-            numb1 = numb
-            print(numb1)
+        print ('--------------------------------fine------------------------------------------')
+        time.sleep(10)
 
-profile.run('crea()')
+
+# profile.run('crea()')
+# profile.run('tipico_randomico()')
+profile.run('main()')
