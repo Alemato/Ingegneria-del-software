@@ -1,9 +1,11 @@
 from xml.etree.ElementTree import *
 import profile
-# import requests
+import requests
 import random
+import threading
 import time
 from System import *
+
 
 Aree = []
 total_robot = 0
@@ -11,6 +13,18 @@ numb_aree = 0
 starting_number_robot = 0
 starting_number_cluster = 0
 num_cluster = []
+
+class myThread(threading.Thread):
+    def __init__(self, threadID, name, counter):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+        self.counter = counter
+
+    def run(self):
+        print("Starting " + self.name)
+        invio_thread(self.name, self.counter)
+        print("Exiting " + self.name)
 
 
 # Creazione oggetti in modo strettamente tipico
@@ -42,8 +56,8 @@ def tipico_randomico():
             numb_aree = numb_aree + 1
         else:
             numb_remainder = 90000 - total_robot
-            max_numb_of_cluster_remainder = numb_remainder / 600
-            min_numb_of_cluster_remainder = numb_remainder / 900
+            max_numb_of_cluster_remainder = int(numb_remainder / 600)
+            min_numb_of_cluster_remainder = int(numb_remainder / 900)
             numb_of_cluster = random.randint(min_numb_of_cluster_remainder, max_numb_of_cluster_remainder)
             Aree.append(Area(numb_aree))
             num_cluster.append(numb_of_cluster - 1)
@@ -54,7 +68,7 @@ def tipico_randomico():
                     if int((numb_remainder / numb_of_cluster_remainder) / 1.25) != int(
                             numb_remainder / numb_of_cluster_remainder):
                         numb_of_robot = random.randint(int((numb_remainder / numb_of_cluster_remainder) / 1.25),
-                                                       numb_remainder / numb_of_cluster_remainder)
+                                                       int(numb_remainder / numb_of_cluster_remainder))
                     else:
                         numb_of_robot = numb_remainder / numb_of_cluster
                     starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
@@ -63,7 +77,7 @@ def tipico_randomico():
                     numb_remainder = 90000 - total_robot
                     numb_of_cluster_remainder = numb_of_cluster_remainder - 1
                 else:
-                    numb_of_robot = numb_remainder / numb_of_cluster_remainder
+                    numb_of_robot = int(numb_remainder / numb_of_cluster_remainder)
                     starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
                     total_robot = total_robot + numb_of_robot
                     numb_remainder = 90000 - total_robot
@@ -161,18 +175,44 @@ def messaggio_stringa():
 
 
 def invio():
-    r = requests.post("http://localhost:8088/", data=messaggio())
-    print(r.status_code, r.reason)
+    r = requests.post("http://httpbin.org/post", data=messaggio_stringa())
+    #print(r.status_code, r.reason, r.text)
 
+################################ INVIO MESSAGGIO THREAD ##################################################
+exitFlag = 0
+
+def invio_thread(threadName, counter):
+    while counter:
+        if exitFlag:
+            threadName.exit()
+        invio()
+        print(threadName, ' ', counter)
+        counter = counter - 1
 
 ########################################## MAIN PROGRAM ###################################################
 def main():
     tipico_randomico()
     volte = 0
-    while volte < 90000:
+    while volte < 200:
         volte = volte + 1
-        messaggio_stringa()
+        invio()
+        print(volte)
 
+def main_thread():
+    tipico_randomico()
+    thread1 = myThread(1, "Thread-1", 200)
+    thread2 = myThread(2, "Thread-2", 200)
+    thread3 = myThread(2, "Thread-3", 200)
+    thread4 = myThread(2, "Thread-4", 200)
+    thread1.start()
+    thread2.start()
+    thread3.start()
+    thread4.start()
+    thread1.join()
+    thread2.join()
+    thread3.join()
+    thread4.join()
+    print("Exiting Main Thread")
 
 def crea():
     timeout = 600
@@ -186,4 +226,6 @@ def crea():
 
 # profile.run('crea()')
 # profile.run('tipico_randomico()')
-profile.run('main()')
+#profile.run('main()')
+
+profile.run('main_thread()')
