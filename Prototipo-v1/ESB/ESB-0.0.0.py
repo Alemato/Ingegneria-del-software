@@ -15,16 +15,17 @@ starting_number_cluster = 0
 num_cluster = []
 
 class myThread(threading.Thread):
-    def __init__(self, threadID, name, counter):
+    def __init__(self, threadID, name, counter, Aree):
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.name = name
         self.counter = counter
+        self.area = Aree
 
     def run(self):
-        print("Starting " + self.name)
-        invio_thread(self.name, self.counter)
-        print("Exiting " + self.name)
+        #print("Starting " + self.name)
+        invio_thread(self.name, self.counter, self.area)
+        #print("Exiting " + self.name)
 
 
 # Creazione oggetti in modo strettamente tipico
@@ -143,30 +144,30 @@ def messaggio():
     return messaggio_text
 
 
-def messaggio_stringa():
+def messaggio_stringa(oarea):
     global numb_aree, num_cluster
     ### Cambio di Stato ###
     area = random.randint(0, numb_aree)
     cluster = random.randint(0, num_cluster[area])
-    numb_robot = len(Aree[area].Cluster[cluster].Robot)
+    numb_robot = len(oarea[area].Cluster[cluster].Robot)
     if (numb_robot - 1) == 0 or (numb_robot - 1) < 0:
         robot = 0
     else:
         robot = random.randint(0, numb_robot - 1)
     sensor = random.randint(1, 7)
-    Aree[area].Cluster[cluster].Robot[robot].change_sensor_status("S" + str(sensor))
+    oarea[area].Cluster[cluster].Robot[robot].change_sensor_status("S" + str(sensor))
 
     ### Creazione del messaggio ###
-    messaggio_text = '<Msg><Robot><ID_Area>' + Aree[area].IDArea + '</ID_Area><ID_Cluster>' + Aree[area].Cluster[
-        cluster].IDCluster + '</ID_Cluster><Name_of_Robot>' + Aree[area].Cluster[cluster].Robot[
+    messaggio_text = '<Msg><Robot><ID_Area>' + oarea[area].IDArea + '</ID_Area><ID_Cluster>' + oarea[area].Cluster[
+        cluster].IDCluster + '</ID_Cluster><Name_of_Robot>' + oarea[area].Cluster[cluster].Robot[
                          robot].IDRobot + '</Name_of_Robot><Sensors><S1>' + str(
-        Aree[area].Cluster[cluster].Robot[robot].Sensors['S1']) + '</S1><S2>' + str(
-        Aree[area].Cluster[cluster].Robot[robot].Sensors['S2']) + '</S2><S3>' + str(
-        Aree[area].Cluster[cluster].Robot[robot].Sensors['S3']) + '</S3><S4>' + str(
-        Aree[area].Cluster[cluster].Robot[robot].Sensors['S4']) + '</S4><S5>' + str(
-        Aree[area].Cluster[cluster].Robot[robot].Sensors['S5']) + '</S5><S6>' + str(
-        Aree[area].Cluster[cluster].Robot[robot].Sensors['S6']) + '</S6><S7>' + str(
-        Aree[area].Cluster[cluster].Robot[robot].Sensors['S7']) + '</S7></Sensors></Robot></Msg>'
+        oarea[area].Cluster[cluster].Robot[robot].Sensors['S1']) + '</S1><S2>' + str(
+        oarea[area].Cluster[cluster].Robot[robot].Sensors['S2']) + '</S2><S3>' + str(
+        oarea[area].Cluster[cluster].Robot[robot].Sensors['S3']) + '</S3><S4>' + str(
+        oarea[area].Cluster[cluster].Robot[robot].Sensors['S4']) + '</S4><S5>' + str(
+        oarea[area].Cluster[cluster].Robot[robot].Sensors['S5']) + '</S5><S6>' + str(
+        oarea[area].Cluster[cluster].Robot[robot].Sensors['S6']) + '</S6><S7>' + str(
+        oarea[area].Cluster[cluster].Robot[robot].Sensors['S7']) + '</S7></Sensors></Robot></Msg>'
 
     return messaggio_text
 
@@ -174,19 +175,19 @@ def messaggio_stringa():
 ################################# INVIO MESSAGGIO #########################################################
 
 
-def invio():
-    r = requests.post("http://httpbin.org/post", data=messaggio_stringa())
+def invio(oarea):
+    r = requests.post("http://localhost:3000/", data=messaggio_stringa(oarea))
     #print(r.status_code, r.reason, r.text)
 
 ################################ INVIO MESSAGGIO THREAD ##################################################
 exitFlag = 0
 
-def invio_thread(threadName, counter):
+def invio_thread(threadName, counter, oarea):
     while counter:
         if exitFlag:
             threadName.exit()
-        invio()
-        print(threadName, ' ', counter)
+        invio(oarea)
+        #print(threadName, ' ', counter)
         counter = counter - 1
 
 ########################################## MAIN PROGRAM ###################################################
@@ -200,18 +201,38 @@ def main():
 
 def main_thread():
     tipico_randomico()
-    thread1 = myThread(1, "Thread-1", 200)
-    thread2 = myThread(2, "Thread-2", 200)
-    thread3 = myThread(2, "Thread-3", 200)
-    thread4 = myThread(2, "Thread-4", 200)
+    Aree1 = Aree
+    Aree2 = Aree
+    Aree3 = Aree
+    Aree4 = Aree
+    Aree5 = Aree
+    Aree6 = Aree
+    Aree7 = Aree
+    Aree8 = Aree
+    thread1 = myThread(1, "Thread-1", 11250, Aree1)
+    thread2 = myThread(2, "Thread-2", 11250, Aree2)
+    thread3 = myThread(3, "Thread-3", 11250, Aree3)
+    thread4 = myThread(4, "Thread-4", 11250, Aree4)
+    thread5 = myThread(5, "Thread-5", 11250, Aree5)
+    thread6 = myThread(6, "Thread-6", 11250, Aree6)
+    thread7 = myThread(7, "Thread-7", 11250, Aree7)
+    thread8 = myThread(8, "Thread-8", 11250, Aree8)
     thread1.start()
     thread2.start()
     thread3.start()
     thread4.start()
+    thread5.start()
+    thread6.start()
+    thread7.start()
+    thread8.start()
     thread1.join()
     thread2.join()
     thread3.join()
     thread4.join()
+    thread5.join()
+    thread6.join()
+    thread7.join()
+    thread8.join()
     print("Exiting Main Thread")
 
 def crea():
