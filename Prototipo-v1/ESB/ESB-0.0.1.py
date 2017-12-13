@@ -4,7 +4,6 @@ import requests
 import random
 import threading
 import time
-import socket
 from System import *
 
 
@@ -139,11 +138,10 @@ def messaggio():
         namesensor = 'S' + str(i + 1)
         namesensostag = SubElement(sensorstag, namesensor)
         namesensostag.text = str(Aree[area].Cluster[cluster].Robot[robot].Sensors[namesensor])
-    file = tostring(msg)
-    print file
-    #file = ElementTree.ElementTree(msg)
+    messaggio_text = tostring(msg)
+    # file = ElementTree.ElementTree(msg)
     # file.write("esempio-messaggio.xml")
-    return file
+    return messaggio_text
 
 
 def messaggio_stringa(oarea):
@@ -181,16 +179,6 @@ def invio(oarea):
     r = requests.post("http://localhost:3000/", data=messaggio_stringa(oarea))
     #print(r.status_code, r.reason, r.text)
 
-
-TCP_IP = '127.0.0.1'
-TCP_PORT = 5005
-BUFFER_SIZE = 1024
-def invio_tcp ():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((TCP_IP, TCP_PORT))
-    s.send(messaggio())
-    resp = s.recv(30000)
-    print resp
 ################################ INVIO MESSAGGIO THREAD ##################################################
 exitFlag = 0
 
@@ -206,9 +194,9 @@ def invio_thread(threadName, counter, oarea):
 def main():
     tipico_randomico()
     volte = 0
-    while volte < 1500:
+    while volte < 200:
         volte = volte + 1
-        invio_tcp()
+        invio()
         print(volte)
 
 def main_thread():
@@ -247,7 +235,6 @@ def main_thread():
     thread8.join()
     print("Exiting Main Thread")
 
-
 def crea():
     timeout = 600
     time_start = time.time()
@@ -261,6 +248,5 @@ def crea():
 # profile.run('crea()')
 # profile.run('tipico_randomico()')
 #profile.run('main()')
-#profile.run('main_thread()')
 
-profile.run('main()')
+profile.run('main_thread()')
