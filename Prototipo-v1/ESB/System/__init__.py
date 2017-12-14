@@ -1,3 +1,6 @@
+import threading
+
+
 class Area:
     def __init__(self, id_area):
         self.IDArea = "A" + str(id_area)
@@ -34,7 +37,7 @@ class Robot:
         self.Sensors = {'S1': 1, 'S2': 1, 'S3': 1, 'S4': 1, 'S5': 1, 'S6': 1, 'S7': 1}
 
     def change_sensor_status(self, id_sensor):
-        #print(id_sensor + " : " + str(self.Sensors[id_sensor]))
+        # print(id_sensor + " : " + str(self.Sensors[id_sensor]))
         if self.Sensors[id_sensor] == 1:
             self.Sensors[id_sensor] = 0
         else:
