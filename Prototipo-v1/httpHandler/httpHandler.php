@@ -17,12 +17,12 @@
 	$port    = 2222;
 
 	// Messaggio da inviare tramite socket
-	$separatore = "/";
+	$separatore = ",";
 	$message = $idArea . $separatore . $cluster . $separatore . $nameRobot . $separatore . 
 			   $s1 . $separatore . $s2 . $separatore . $s3 . $separatore . 
 			   $s4 . $separatore . $s5 . $separatore . $s6 . $separatore . $s7;
 
-	echo $message;
+	//echo $message;
 	
 	// Creazione Socket
 	$socket = socket_create(AF_INET, SOCK_STREAM, 0) or die("Impossibile creare il socket\n");
