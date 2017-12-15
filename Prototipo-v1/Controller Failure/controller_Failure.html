@@ -17,32 +17,28 @@
     <script src="js/jquery.server-observer.js"></script>
     <script>
         $(document).ready(function () {
-            $.serverObserver.enable({
-                url: " ",
-                frequency: 5000,
-                onServerOnline: function () {
-                    // The server is available
-                    $("#server-1").text(' OK');
-                    console.log('ok');
-                },
-                onServerOffline: function () {
-                    // The server is unavailable
-                    $("#server-1").text(' KO');
-                    console.log('ko');
+            $.ajax({
+                url: "http://192.168.2.1",
+                dataType: "jsonp",
+                statusCode: {
+                    200: function (response) {
+                        $("#server-1").text('OK');
+                    },
+                    404: function (response) {
+                        $("#server-1").text('KO');
+                    }
                 }
             });
-            $.serverObserver.enable({
-                url: "http://192.168.2.1/",
-                frequency: 5000,
-                onServerOnline: function () {
-                    // The server is available
-                    $("#server-1").text(' OK');
-                    console.log('ok');
-                },
-                onServerOffline: function () {
-                    // The server is unavailable
-                    $("#server-1").text(' KO');
-                    console.log('ko');
+            $.ajax({
+                url: "http://localhost",
+                dataType: "jsonp",
+                statusCode: {
+                    200: function (response) {
+                        $("#server-2").text('OK');
+                    },
+                    404: function (response) {
+                        $("#server-2").text('KO');
+                    }
                 }
             });
         });
