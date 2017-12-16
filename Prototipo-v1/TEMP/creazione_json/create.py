@@ -64,7 +64,7 @@ def crea():
     for a in range(numb_aree+1):
         for c in range(num_cluster[a]+1):
             for r in range(len(Aree[a].Cluster[c].Robot)):
-                f["Robot"].append([{
+                f["Robot"].append({
                     "Name_Of_Robot": Aree[a].Cluster[c].Robot[r].IDRobot,
                     "Sensors": [{
                         "S1": str(Aree[a].Cluster[c].Robot[r].Sensors['S1']),
@@ -73,7 +73,7 @@ def crea():
                         "S4": str(Aree[a].Cluster[c].Robot[r].Sensors['S4']),
                         "S5": str(Aree[a].Cluster[c].Robot[r].Sensors['S5']),
                         "S6": str(Aree[a].Cluster[c].Robot[r].Sensors['S6']),
-                        "S7": str(Aree[a].Cluster[c].Robot[r].Sensors['S7'])}]}])
+                        "S7": str(Aree[a].Cluster[c].Robot[r].Sensors['S7'])}]})
             namefile = Aree[a].IDArea + Aree[a].Cluster[c].IDCluster+".json"
             with open(namefile, 'w') as outfile:
                 json.dump(f, outfile)
