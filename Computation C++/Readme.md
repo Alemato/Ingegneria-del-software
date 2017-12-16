@@ -5,8 +5,8 @@ Il client al momento dell'esecuzione richiede di specificare un ip (default loca
 
 ## Compilazione
 
-Compilare il sorgente server.cpp tramite comando: <b> | g++ server.cpp -o "nome eseguibile" |. <br/>
-Compilare il sorgente client.cpp tramite comando: <b> | g++ client.cpp -o "nome eseguibile" |. <br/>
+Compilare il sorgente server.cpp tramite comando: <b> | g++ server.cpp -o "nome eseguibile" |.</b> <br/>
+Compilare il sorgente client.cpp tramite comando: <b> | g++ client.cpp -o "nome eseguibile" |.</b> <br/>
 
 ## Utilizzo
 
