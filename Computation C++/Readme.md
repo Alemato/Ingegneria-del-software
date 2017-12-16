@@ -5,12 +5,12 @@ Il client al momento dell'esecuzione richiede di specificare un ip (default loca
 
 ## Compilazione
 
-Compilare il sorgente server.cpp tramite comando: | g++ server.cpp -o "nome eseguibile" |. <br/>
-Compilare il sorgente client.cpp tramite comando: | g++ client.cpp -o "nome eseguibile" |. <br/>
+Compilare il sorgente server.cpp tramite comando: <b> | g++ server.cpp -o "nome eseguibile" |. <br/>
+Compilare il sorgente client.cpp tramite comando: <b> | g++ client.cpp -o "nome eseguibile" |. <br/>
 
 ## Utilizzo
 
-Lanciare il server E.g. ./server 2222 . <br/>
+Lanciare il server <b> E.g. ./server 2222 . </b> <br/>
  
 Lanciare il client E.g. ./client localhost 2222 . <br/>
 
@@ -20,9 +20,9 @@ Il client potrà inviare dei messaggi di test al server (To-do : Fix bug messagg
 
 ## Collegamento con HttpHandler (Apache)
 
-Lanciare il server E.g. ./server 2222 . <br/>
+Lanciare il server <b> E.g. ./server 2222 . </b><br/>
 
-Modificare il file "index.php" con l'ip del server e la porta su cui è in ascolto. <br/>
+Modificare il file <b> "index.php" </b> con l'ip del server e la porta su cui è in ascolto. <br/>
 
 Il modulo php potrà inviare messaggi multipli. <br/>
 
@@ -31,12 +31,12 @@ Questi verranno parsati e incapsulati all'interno di oggetti "Message" che verra
 
 ## TO-DO
 
-Creare albero N-ario di Aree-Cluster-Robot. <br/>
+Creare <b>albero N-ario</b> di Aree-Cluster-Robot. <br/>
 
-Algoritmo calcolo IR basato sulla visita dell'albero. <br/>
+Algoritmo <b>calcolo IR </b>basato sulla visita dell'albero. <br/>
 
 
 ## Final TO-DO
 
-Accelerated GPU Parallel Computation with Multi Threading by C-Cuda Library. <br/>
+Accelerated GPU Parallel Computation with <b>Multi Threading by C-Cuda Library.</b> <br/>
 
