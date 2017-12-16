@@ -12,7 +12,7 @@ Compilare il sorgente client.cpp tramite comando: <b> | g++ client.cpp -o "nome 
 
 Lanciare il server <b> E.g. ./server 2222 . </b> <br/>
  
-Lanciare il client E.g. ./client localhost 2222 . <br/>
+Lanciare il client <b> E.g. ./client localhost 2222 . </b> <br/>
 
 
 Il client potrà inviare dei messaggi di test al server (To-do : Fix bug messaggi multipli). <br/>
