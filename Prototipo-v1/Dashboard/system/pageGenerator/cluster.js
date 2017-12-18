@@ -6,7 +6,7 @@ $.ajax({
     data: {
     		"functionName": "cluster",
     		"nArea":1,
-    		"nCluster":0
+    		"nCluster":1
     	  },
     success: function(response) {
         number = response;
