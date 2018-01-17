@@ -59,9 +59,11 @@ def tipico_randomico():
 ############################## CREAZIONE JSON #######################################
 def crea():
     global numb_aree, num_cluster
+    b=0
     f = {}
     f["Robot"] = []
     for a in range(numb_aree+1):
+        b +=1
         for c in range(num_cluster[a]+1):
             for r in range(len(Aree[a].Cluster[c].Robot)):
                 f["Robot"].append({
@@ -74,7 +76,7 @@ def crea():
                         "S5": str(Aree[a].Cluster[c].Robot[r].Sensors['S5']),
                         "S6": str(Aree[a].Cluster[c].Robot[r].Sensors['S6']),
                         "S7": str(Aree[a].Cluster[c].Robot[r].Sensors['S7'])}]})
-            namefile = Aree[a].IDArea + Aree[a].Cluster[c].IDCluster+".json"
+            namefile = str('A') + str(b) + str('C') + str(c) + ".json"
             with open(namefile, 'w') as outfile:
                 json.dump(f, outfile)
             f ={}
