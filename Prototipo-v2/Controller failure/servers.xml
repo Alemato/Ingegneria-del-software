@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servers>
+	
+	
+	
+<server id="1"><name>mario</name><host>google.it</host><port>80</port></server><server id="2"><name>mario</name><host>matteifamily.net</host><port>80</port></server><server id="3"><name>aaaa</name><host>hermes.matteifamily.net</host><port>5002</port></server></servers>
