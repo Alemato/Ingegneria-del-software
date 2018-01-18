@@ -156,4 +156,4 @@ def main_thread():
     thread2.join()
     print("Exiting Main Thread")
 
-profile.run('main_thread()')
+main_thread()
