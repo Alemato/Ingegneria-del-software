@@ -1,48 +1,24 @@
-var number;
-
-$.ajax({
-    type: "POST",
-    url: 'system/pageGenerator/countFilesSys.php',
-    data: {
-    		"functionName": "cluster",
-    		"nArea":1,
-    		"nCluster":1
-    	  },
-    success: function(response) {
-        number = response;
-    }
-});
-
+function getURLParameter(name) {
+	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+}
 
 $(document).ready(function () {
 
-	var card = "";
-	for (var i = 0; i < number; i++) {
-		
-		card += '<div class="col-md-3"><div class="card"><div class="header">' +
-						        	   '<h4 class="title">Cluster ' + (i+1) + '</h4>' +
-						         	   '<p class="category">Info blu blu blu</p>' +
-						         	   '<h4 class="title">Inefficiency Rate</h4>' +
-						         	   '<p class="category">The Last Hour</p>' +
-						      	  '</div>' +
-						      	  '<div class="content">' +
-						          	  '<div id="chartHours" class="ct-chart">' +
-						             	   '<p class="category"></p>' +
-						           	 '</div>' +
-						          	  '<div class="footer">' +
-						              	  '<div class="legend">' +
-						             	       '<i class="fa fa-circle text-success"></i> Efficiency' +
-						               	     '<i class="fa fa-circle text-danger"></i> Inefficiency' +
-						              	  '</div>' +
-						              	  '<hr>' +
-						              	  '<div class="stats">' +
-						              	      '<i class="fa fa-history"></i> Updated ___ minutes ago' +
-						             	   '</div>' +
-						            	'</div>' +
-						        	'</div>' +
-						    	'</div>' +
-							'</div>';
-		
-	}
-	$('#autoCluster').append(card);
+    $.ajax({
+        type: "POST",
+        url: 'system/pageGenerator/countFilesSys.php',
+        data: {
+                "functionName": "cluster",
+                "nArea": getURLParameter('area').replace('A', ''),
+                "nCluster": 0
+            },
+        success: function(response) {
+
+            $('#autoCluster').append(response);
+        }
+    });
+
+    setInterval(function(){
+        location.reload();
+    },60000);
 });
