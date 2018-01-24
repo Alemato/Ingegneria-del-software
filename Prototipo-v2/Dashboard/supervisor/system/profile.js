@@ -6,6 +6,7 @@ $(document).ready(function () {
         data: {
                 "functionName": "lsSupervisor",
                 "name": 0,
+                "user": 0,
                 "password": 0
         },
         success: function(response) {

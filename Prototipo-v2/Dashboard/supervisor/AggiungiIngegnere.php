@@ -128,20 +128,16 @@
                         <div>
                             <form role="form">
                                 <div class="form-group">
-                                    <label class="control-label">Nome</label>
-                                    <input type="text" class="form-control underlined" placeholder="Nome">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Cognome</label>
-                                    <input type="text" class="form-control underlined" placeholder="Cognome">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Mansione</label>
-                                    <input type="text" class="form-control underlined" placeholder="Mansione">
+                                    <label class="control-label">Nome e Cognome</label>
+                                    <input id='name' type="text" class="form-control underlined" placeholder="Nome e Cognome">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Codice ID</label>
-                                    <input type="text" class="form-control underlined" placeholder="CodiceID">
+                                    <input id='user' type="text" class="form-control underlined" placeholder="Codice ID">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Password</label>
+                                    <input id='psw' type="text" class="form-control underlined" placeholder="Password">
                                 </div>
 
                             </form>
@@ -151,9 +147,7 @@
             </div>
 
             <div>
-                <a href="Dashboard.html">
-                    <input class="btn btn-default margine_bottone_salva" type="submit" value="Salva">
-                </a>
+                <a class="btn btn-default margine_bottone_salva" id='salva'>Salva</a>
             </div>
 
         </div>
@@ -180,6 +174,6 @@
 <script src="assets/js/demo.js"></script>
 
 <!-- autoGenerate areas -->
-<script src="system/pageGenerator/area.js"></script>
+<script src="system/addIng.js"></script>
 
 </html>

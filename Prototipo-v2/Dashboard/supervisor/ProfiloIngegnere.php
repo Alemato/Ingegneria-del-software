@@ -136,22 +136,17 @@
                             </div>
                             <form role="form">
                                 <div class="form-group">
-                                    <label class="control-label">Nome</label>
-                                    <input type="text" value="" class="form-control underlined">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Cognome</label>
-                                    <input type="text" value="" class="form-control underlined">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Mansione</label>
+                                    <label class="control-label">Nome e Cognome</label>
                                     <input type="text" value="" class="form-control underlined">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Codice ID</label>
                                     <input type="text" value="" class="form-control underlined">
                                 </div>
-
+                                <div class="form-group">
+                                    <label class="control-label">Password</label>
+                                    <input type="text" value="" class="form-control underlined">
+                                </div>
                             </form>
                         </div>
                     </div>

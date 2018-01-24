@@ -50,10 +50,10 @@ class dbManager {
 	}
 
 
-	function insertEngineer($username, $password) {
+	function insertEngineer($name, $username, $password) {
 
-		$this->sql = "INSERT INTO engineers (username, password)
-					  VALUES ('$username', '$password')";
+		$this->sql = "INSERT INTO engineers (name, username, password)
+					  VALUES ('$name', '$username', '$password')";
 		$this->executeQuery();
 	}
 
@@ -136,7 +136,7 @@ class dbManager {
 
 		$HTML = "";
 
-		$this->sql = "SELECT name, username FROM supervisors";
+		$this->sql = "SELECT name, username FROM engineers";
 		$this->executeQuery();
 
 		if ($this->result->num_rows > 0) {
