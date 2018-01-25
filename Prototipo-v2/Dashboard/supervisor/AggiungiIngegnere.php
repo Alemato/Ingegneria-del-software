@@ -41,7 +41,7 @@
         }
         .margine_bottone_salva{
             margin-left: 15px !important;
-            margin-top: 15px !important;
+            margin-top: 45px !important;
         }
 
 
@@ -62,12 +62,12 @@
             <ul class="nav">
                 <li>
                     <a href="Dashboard.php">
-                        <p>Lista Ingegneri</p>
+                        <p>Lista Utenti</p>
                     </a>
                 </li>
                 <li class="active">
                     <a>
-                        <p>Aggiungi Ingegnere</p>
+                        <p>Aggiungi Utenti</p>
                     </a>
                 </li>
                 <li>
@@ -96,7 +96,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand">Aggiungi Ingegnere</a>
+                    <a class="navbar-brand">Aggiungi Utente</a>
                     <a href="Dashboard.php">
                         <button type="button" class="btn btn-default margine_bottone">Back</button>
                     </a>
@@ -144,8 +144,17 @@
                                     <label class="control-label">Password</label>
                                     <input id='psw' type="text" class="form-control underlined" placeholder="Password">
                                 </div>
-
                             </form>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stato" class="col-md-11 control-label">Mansione</label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="stato">
+                                <option>Ingegnere</option>
+                                <option>Supervisor</option>
+                            </select>
                         </div>
                     </div>
                 </div>
