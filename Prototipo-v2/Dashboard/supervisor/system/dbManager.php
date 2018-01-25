@@ -155,7 +155,7 @@ class dbManager {
 							</div>
 							<div class="col-md-2">
 								<a href="Dashboard.html">
-									<button class="btn btn-default" type="submit">Rimuovi</button>
+									<a class="btn btn-default margine_bottone_salva" id=\'elimina\'>Salva</a>
 								</a>
 							</div>
 						</div>
