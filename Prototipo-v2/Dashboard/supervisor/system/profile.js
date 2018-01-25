@@ -14,25 +14,22 @@ $(document).ready(function () {
             $('#auto').append(response);
         }
     });
-
-    var myLink = document.getElementById('elimina');
-
-    myLink.onclick = function(){
-
-        $.ajax({
-            type: "POST",
-            url: 'system/system.php',
-            data: {
-                    "functionName": "addUser",
-                    "name": document.getElementById("name").value,
-                    "user": document.getElementById("user").value,
-                    "password": document.getElementById("psw").value
-            },
-            success: function(response) {
-
-                alert(response);
-                location.reload();
-            }
-        });
-    }
 });
+
+function del_click(value) {
+            
+    $.ajax({
+        type: "POST",
+        url: 'system/system.php',
+        data: {
+                "functionName": "removeUser",
+                "name": 0,
+                "user": value,
+                "password": 0
+        },
+        success: function(response) {
+
+            location.reload();
+        }
+    });
+}

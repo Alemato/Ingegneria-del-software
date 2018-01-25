@@ -150,12 +150,12 @@ class dbManager {
 									<p class="list-group-item-heading text-dark">Nome Ingegnere: '.$row["name"].'</p>
 								</div>
 								<div class="col-md-3">
-									<p class="list-group-item-text text-dark">ID Ingegnere: '.$row["username"].'</p>
+									<p class="list-group-item-text text-dark")">ID Ingegnere: '.$row["username"].'</p>
 								</div>
 							</div>
 							<div class="col-md-2">
 								<a href="Dashboard.html">
-									<a class="btn btn-default margine_bottone_salva" id=\'elimina\'>Salva</a>
+									<a class="btn btn-default margine_bottone_salva" id='.$row["username"].' onClick="del_click(this.id)">Elimina</a>
 								</a>
 							</div>
 						</div>

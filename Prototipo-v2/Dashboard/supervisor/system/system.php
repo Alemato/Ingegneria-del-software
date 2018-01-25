@@ -11,9 +11,9 @@
 	    lsSupervisor();
 	} else if ($functionName == "addUser") {
 	    addUser($name, $user, $password);
-	} /*else if ($functionName == "robot") {
-	    robot($area, $cluster);
-	}*/
+	} else if ($functionName == "removeUser") {
+	    removeUser($user);
+	}
 
 
 	function lsSupervisor() {
@@ -40,6 +40,15 @@
 			echo "User esistente";
 		}
 
+		$dbManager->closeConnection();
+	}
+
+
+	function removeUser($user) {
+
+		$dbManager = new dbManager;
+		$dbManager->connectDB();
+		$dbManager->deleteEngineer($user);
 		$dbManager->closeConnection();
 	}
 
