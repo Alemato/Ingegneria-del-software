@@ -45,7 +45,7 @@
     <div class="sidebar" data-color="blue">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="Dashboard.html" class="simple-text">
+                <a>
                     Micron Technology
                 </a>
             </div>
@@ -67,7 +67,9 @@
                         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
                         <label for="inputPassword" class="sr-only">Password</label>
                         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-                        <button class="btn btn-lg btn-primary btn-block margin-top" type="submit">Sign in</button>
+                        <a href="Dashboard.php">
+                            <button class="btn btn-lg btn-primary btn-block margin-top" type="submit">Sign in</button>
+                        </a>
                     </form>
                 </div>
 

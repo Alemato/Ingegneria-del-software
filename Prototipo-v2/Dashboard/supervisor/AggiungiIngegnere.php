@@ -61,13 +61,18 @@
 
             <ul class="nav">
                 <li>
-                    <a href="Dashboard.html">
+                    <a href="Dashboard.php">
                         <p>Lista Ingegneri</p>
                     </a>
                 </li>
                 <li class="active">
                     <a>
                         <p>Aggiungi Ingegnere</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../Controller%20failure/index.php">
+                        <p>Controller Failure </p>
                     </a>
                 </li>
 
@@ -91,8 +96,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Aggiungi Ingegnere</a>
-                    <a href="Dashboard.html">
+                    <a class="navbar-brand">Aggiungi Ingegnere</a>
+                    <a href="Dashboard.php">
                         <button type="button" class="btn btn-default margine_bottone">Back</button>
                     </a>
                 </div>
@@ -107,7 +112,7 @@
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="Login.php">
                                 <p>Log out</p>
                             </a>
                         </li>

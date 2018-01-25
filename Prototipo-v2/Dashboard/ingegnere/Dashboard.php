@@ -35,6 +35,10 @@
         .search_margin {
             margin-bottom: 50px;
         }
+        .margine_bottone{
+            margin: 9px 3px !important;
+
+        }
 
     </style>
 
@@ -45,19 +49,19 @@
     <div class="sidebar" data-color="blue">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="Dashboard.html" class="simple-text">
+                <a href="Dashboard.php" class="simple-text">
                     Micron Technology
                 </a>
             </div>
 
             <ul class="nav">
                 <li class="active">
-                    <a href="Dashboard.html">
+                    <a>
                         <p>Home</p>
                     </a>
                 </li>
                 <li>
-                    <a href="Area.html">
+                    <a href="Area.php">
                         <p>Area</p>
                     </a>
                 </li>
@@ -87,7 +91,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">
+                            <a href="Login.php">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -167,36 +171,6 @@
     </div>
 </div>
 
-    <!--
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav class="pull-left">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Company
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Portfolio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                   Blog
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </footer>
-    -->
 </div>
 </div>
 

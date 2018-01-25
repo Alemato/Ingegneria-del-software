@@ -57,20 +57,25 @@
     <div class="sidebar" data-color="blue">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="Dashboard.html" class="simple-text">
+                <a href="Dashboard.php" class="simple-text">
                     Micron Technology
                 </a>
             </div>
 
             <ul class="nav">
                 <li>
-                    <a href="Dashboard.html">
+                    <a href="Dashboard.php">
                         <p>Lista Cluster</p>
                     </a>
                 </li>
                 <li class="active">
-                    <a href="ProfiloIngegnere.html">
+                    <a>
                         <p>Profilo Ingegnere </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../Controller%20failure/index.php">
+                        <p>Controller Failure </p>
                     </a>
                 </li>
 
@@ -96,7 +101,7 @@
                     </button>
                     <a class="navbar-brand" href="#">Nome Ing </a>
                     <!-- qui andrà aggiunto il nome del'ingegnere selezionato -->
-                    <a href="Dashboard.html">
+                    <a href="Dashboard.php">
                         <button type="button" class="btn btn-default margine_bottone">Back</button>
                     </a>
                 </div>
@@ -111,7 +116,7 @@
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="Login.php">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -154,7 +159,7 @@
             </div>
 
             <div>
-                <a href="Dashboard.html">
+                <a href="Dashboard.php">
                     <input class="btn btn-default margine_bottone_salva" type="submit" value="Salva">
                 </a>
             </div>

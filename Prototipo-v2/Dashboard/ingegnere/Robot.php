@@ -35,6 +35,10 @@
         .search_margin{
             margin-bottom: 30px;
         }
+        .margine_bottone{
+            margin: 9px 3px !important;
+
+        }
 
 
     </style>
@@ -46,20 +50,25 @@
     <div class="sidebar" data-color="blue">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="Dashboard.html" class="simple-text">
+                <a href="Dashboard.php" class="simple-text">
                     Micron Technology
                 </a>
             </div>
 
             <ul class="nav">
                 <li>
-                    <a href="Dashboard.html">
+                    <a href="Dashboard.php">
                         <p>Home</p>
                     </a>
                 </li>
-                <li class="active">
-                    <a href="Area.html">
+                <li>
+                    <a href="Area.php">
                         <p>Area</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a>
+                        <p>Robot</p>
                     </a>
                 </li>
 
@@ -83,14 +92,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Area View</a>
+                    <a class="navbar-brand" href="#">Robot View</a>
+                    <a href="Cluster.php">
+                        <button type="button" class="btn btn-default margine_bottone">Back</button>
+                    </a>
                 </div>
                 <div class="collapse navbar-collapse">
 
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">
+                            <a href="Login.php">
                                 <p>Log out</p>
                             </a>
                         </li>

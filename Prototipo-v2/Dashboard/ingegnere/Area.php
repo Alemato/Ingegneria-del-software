@@ -46,19 +46,19 @@
     <div class="sidebar" data-color="blue">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="Dashboard.html" class="simple-text">
+                <a href="Dashboard.php" class="simple-text">
                     Micron Technology
                 </a>
             </div>
 
             <ul class="nav">
                 <li>
-                    <a href="Dashboard.html">
+                    <a href="Dashboard.php">
                         <p>Home</p>
                     </a>
                 </li>
                 <li class="active">
-                    <a href="Area.html">
+                    <a>
                         <p>Area</p>
                     </a>
                 </li>
@@ -84,13 +84,16 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">Area View</a>
+                    <a href="Dashboard.php">
+                        <button type="button" class="btn btn-default margine_bottone">Back</button>
+                    </a>
                 </div>
                 <div class="collapse navbar-collapse">
 
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">
+                            <a href="Login.php">
                                 <p>Log out</p>
                             </a>
                         </li>

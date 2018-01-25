@@ -45,7 +45,7 @@
     <div class="sidebar" data-color="blue">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="Dashboard.html" class="simple-text">
+                <a href="Dashboard.php" class="simple-text">
                     Micron Technology
                 </a>
             </div>
@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="AggiungiIngegnere.html">
+                    <a href="AggiungiIngegnere.php">
                         <p>Aggiungi Ingegnere </p>
                     </a>
                 </li>
@@ -97,7 +97,7 @@
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="Login.php">
                                 <p>Log out</p>
                             </a>
                         </li>
