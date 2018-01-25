@@ -4,6 +4,9 @@ $(document).ready(function () {
 
     myLink.onclick = function(){
 
+        var elem = document.getElementById("stato"),
+        selected = elem.options[elem.selectedIndex].value;
+
         $.ajax({
             type: "POST",
             url: 'system/system.php',
@@ -11,7 +14,8 @@ $(document).ready(function () {
                     "functionName": "addUser",
                     "name": document.getElementById("name").value,
                     "user": document.getElementById("user").value,
-                    "password": document.getElementById("psw").value
+                    "password": document.getElementById("psw").value,
+                    "type": selected
             },
             success: function(response) {
 

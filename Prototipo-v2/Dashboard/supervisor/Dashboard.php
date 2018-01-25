@@ -1,3 +1,7 @@
+<?php
+   include('session.php');
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -97,7 +101,7 @@
                         </li>
 
                         <li>
-                            <a href="Login.php">
+                            <a href="logout.php">
                                 <p>Log out</p>
                             </a>
                         </li>

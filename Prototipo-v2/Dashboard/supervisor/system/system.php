@@ -1,32 +1,35 @@
 <?php
-
+	
 	include 'dbManager.php';
 
 	$functionName = $_POST['functionName'];
 	$name = $_POST['name'];
 	$user = $_POST['user'];
 	$password = $_POST['password'];
+	$type = $_POST['type'];
 
-	if ($functionName == "lsSupervisor") {
-	    lsSupervisor();
-	} else if ($functionName == "addUser") {
-	    addUser($name, $user, $password);
+	if ($functionName == "lsUsers") {
+	    lsUsers();
+	} else if ($functionName == "addUser" && $type == "Ingegnere") {
+	    addIng($name, $user, $password);
+	} else if ($functionName == "addUser" && $type == "Supervisor") {
+	    addSupv($name, $user, $password);
 	} else if ($functionName == "removeUser") {
-	    removeUser($user);
+	    removeUser($user, $type);
 	}
 
 
-	function lsSupervisor() {
+	function lsUsers() {
 
 		$dbManager = new dbManager;
 		$dbManager->connectDB();
-		$method = $dbManager->listSupervisor();
+		$method = $dbManager->listUsers();
 		$dbManager->closeConnection();
 	    echo $method;
 	}
 
 
-	function addUser($name, $user, $password) {
+	function addIng($name, $user, $password) {
 
 		$dbManager = new dbManager;
 		$dbManager->connectDB();
@@ -34,22 +37,50 @@
 		if(!$dbManager->existEnginner($user)) {
 			
 			$dbManager->insertEngineer($name, $user, $password);
-			echo "Aggiunto";
+			echo "Ingegnere aggiunto";
 		} else {
 
-			echo "User esistente";
+			echo "Ingegnere esistente";
 		}
 
 		$dbManager->closeConnection();
 	}
 
 
-	function removeUser($user) {
+	function addSupv($name, $user, $password) {
 
 		$dbManager = new dbManager;
 		$dbManager->connectDB();
-		$dbManager->deleteEngineer($user);
+
+		if(!$dbManager->existSupervisor($user)) {
+			
+			$dbManager->insertSupervisor($name, $user, $password);
+			echo "Supervisor aggiunto";
+		} else {
+
+			echo "Supervisor esistente";
+		}
+
 		$dbManager->closeConnection();
+	}
+
+
+	function removeUser($user, $type) {
+
+		if($type == "Ingegnere") {
+
+			$dbManager = new dbManager;
+			$dbManager->connectDB();
+			$dbManager->deleteEngineer($user);
+			$dbManager->closeConnection();
+			
+		}  else if ($type == "Supervisor") {
+
+			$dbManager = new dbManager;
+			$dbManager->connectDB();
+			$dbManager->deleteSupervisor($user);
+			$dbManager->closeConnection();
+		}
 	}
 
 ?>

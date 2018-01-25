@@ -58,10 +58,10 @@ class dbManager {
 	}
 
 
-	function insertSupervisor($username, $password) {
+	function insertSupervisor($name, $username, $password) {
 
-		$this->sql = "INSERT INTO supervisors (username, password)
-					  VALUES ('$username', '$password')";
+		$this->sql = "INSERT INTO supervisors (name, username, password)
+					  VALUES ('$name', '$username', '$password')";
 		$this->executeQuery();
 	}
 
@@ -132,7 +132,7 @@ class dbManager {
 	}
 
 
-	function listSupervisor() {
+	function listUsers() {
 
 		$HTML = "";
 
@@ -147,15 +147,48 @@ class dbManager {
 						<div class="row">
 							<div class="col-md-9">
 								<div class="col-md-3">
-									<p class="list-group-item-heading text-dark">Nome Ingegnere: '.$row["name"].'</p>
+									<p class="list-group-item-heading text-dark">Nome Ingegnere: <b>'.$row["name"].'</b></p>
 								</div>
 								<div class="col-md-3">
-									<p class="list-group-item-text text-dark")">ID Ingegnere: '.$row["username"].'</p>
+									<p class="list-group-item-text text-dark")">ID Ingegnere: <b>'.$row["username"].'</b></p>
+								</div>
+								<div class="col-md-3">
+									<p class="list-group-item-text text-dark">Mansione: <b>Ingegnere</b></p>
 								</div>
 							</div>
 							<div class="col-md-2">
 								<a href="Dashboard.html">
-									<a class="btn btn-default margine_bottone_salva" id='.$row["username"].' onClick="del_click(this.id)">Elimina</a>
+									<a class="btn btn-default margine_bottone_salva" id='.$row["username"].' onClick="del_click(this.id, \'Ingegnere\')">Elimina</a>
+								</a>
+							</div>
+						</div>
+					</div>';
+			}
+		}
+
+		$this->sql = "SELECT name, username FROM supervisors";
+		$this->executeQuery();
+
+		if ($this->result->num_rows > 0) {
+
+			while($row = $this->result->fetch_assoc()) {
+
+				$HTML .= '<div class="list-group-item">
+						<div class="row">
+							<div class="col-md-9">
+								<div class="col-md-3">
+									<p class="list-group-item-heading text-dark">Nome Ingegnere: <b>'.$row["name"].'</b></p>
+								</div>
+								<div class="col-md-3">
+									<p class="list-group-item-text text-dark">ID Ingegnere: <b>'.$row["username"].'</b></p>
+								</div>
+								<div class="col-md-3">
+									<p class="list-group-item-text text-dark">Mansione: <b>Supervisor</b></p>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<a href="Dashboard.html">
+									<a class="btn btn-default margine_bottone_salva" id='.$row["username"].' onClick="del_click(this.id, \'Supervisor\')">Elimina</a>
 								</a>
 							</div>
 						</div>

@@ -4,10 +4,11 @@ $(document).ready(function () {
         type: "POST",
         url: 'system/system.php',
         data: {
-                "functionName": "lsSupervisor",
+                "functionName": "lsUsers",
                 "name": 0,
                 "user": 0,
-                "password": 0
+                "password": 0,
+                "type": 0
         },
         success: function(response) {
 
@@ -16,8 +17,8 @@ $(document).ready(function () {
     });
 });
 
-function del_click(value) {
-            
+function del_click(value, type) {      
+
     $.ajax({
         type: "POST",
         url: 'system/system.php',
@@ -25,7 +26,8 @@ function del_click(value) {
                 "functionName": "removeUser",
                 "name": 0,
                 "user": value,
-                "password": 0
+                "password": 0,
+                "type": type
         },
         success: function(response) {
 
