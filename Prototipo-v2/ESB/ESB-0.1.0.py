@@ -1,4 +1,3 @@
-import profile
 import random
 import http.client
 import urllib.parse
@@ -23,13 +22,83 @@ class myThread(threading.Thread):
         self.area = Aree
 
     def run(self):
-        #print("Starting " + self.name)
         invio_thread(self.name, self.counter, self.area)
-        #print("Exiting " + self.name)
 
-########################### CREAZIONE OGGETTI #################################
+
+#################################### CREAZIONE OGGETTI IN MODO MANUALE ##########################################
+def custum():
+    global starting_number_cluster, starting_number_robot, total_robot
+    numb_aree = int(input('Inserisci il numero di Aree:  '))
+    for a in range(numb_aree):
+        number_of_cluster = int(input('Inserisci il numero di cluster per Area numero ' + str(a) + ':  '))
+        Aree.append(System.Area(a))
+        starting_number_cluster = Aree[a].set_cluster(number_of_cluster, starting_number_cluster)
+        for c in range(len(Aree[a].Cluster)):
+            number_of_robot = int(input('Inserisci il numero di robot per il Cluster numero ' + str(c) + ': '))
+            starting_number_robot = Aree[a].Cluster[c].set_robot(number_of_robot, starting_number_robot)
+            total_robot = total_robot + number_of_robot
+    print('risultato della creazione')
+    for a in range(numb_aree):
+        for c in range(len(Aree[a].Cluster)):
+            print('Area:', a, ' Cluster: ', c, ' Robot : ', len(Aree[a].Cluster[c].Robot))
+    print('Numero totale di robot al interno del sistema e :  ', total_robot)
+    print(len(Aree))
+
+
+#################################### CREAZIONE OGGETTI IN MODO SEMIRANDOM ##########################################
+def tipico_semirandomico():
+    global numb_aree, starting_number_robot, starting_number_cluster, total_robot, num_cluster
+    numb_of_robot_input = int(input('inserisci il numero di robot del intero sistema:  '))
+    print('inizio la creazione')
+    print('risultato creazione')
+    while total_robot < numb_of_robot_input:
+        if total_robot < (numb_of_robot_input / 2):
+            numb_of_cluster = random.randint(20, 50)
+            Aree.append(System.Area(numb_aree))
+            starting_number_cluster = Aree[numb_aree].set_cluster(numb_of_cluster, starting_number_cluster)
+            for c in range(numb_of_cluster):
+                numb_of_robot = random.randint(500, 1000)
+                starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
+                print('Area:', numb_aree, ' Cluster: ', c, ' Robot : ', numb_of_robot)
+                total_robot = total_robot + numb_of_robot
+            num_cluster.append(numb_of_cluster - 1)
+            numb_aree = numb_aree + 1
+        else:
+            numb_remainder = numb_of_robot_input - total_robot
+            max_numb_of_cluster_remainder = int(numb_remainder / 600)
+            min_numb_of_cluster_remainder = int(numb_remainder / 900)
+            numb_of_cluster = random.randint(min_numb_of_cluster_remainder, max_numb_of_cluster_remainder)
+            Aree.append(System.Area(numb_aree))
+            num_cluster.append(numb_of_cluster - 1)
+            starting_number_cluster = Aree[numb_aree].set_cluster(numb_of_cluster, starting_number_cluster)
+            numb_of_cluster_remainder = numb_of_cluster
+            for c in range(numb_of_cluster):
+                if numb_of_cluster_remainder > 10:
+                    if int((numb_remainder / numb_of_cluster_remainder) / 1.25) != int(
+                            numb_remainder / numb_of_cluster_remainder):
+                        numb_of_robot = random.randint(int((numb_remainder / numb_of_cluster_remainder) / 1.25),
+                                                       int(numb_remainder / numb_of_cluster_remainder))
+                    else:
+                        numb_of_robot = numb_remainder / numb_of_cluster
+                    starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
+                    print('Area:', numb_aree, ' Cluster: ', c, ' Robot : ', numb_of_robot)
+                    total_robot = total_robot + numb_of_robot
+                    numb_remainder = numb_of_robot_input - total_robot
+                    numb_of_cluster_remainder = numb_of_cluster_remainder - 1
+                else:
+                    numb_of_robot = int(numb_remainder / numb_of_cluster_remainder)
+                    starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
+                    total_robot = total_robot + numb_of_robot
+                    numb_remainder = numb_of_robot_input - total_robot
+                    numb_of_cluster_remainder = numb_of_cluster_remainder - 1
+            print('Numero totale di robot al interno del sistema e :  ', total_robot)
+
+
+########################### CREAZIONE OGGETTI  IN MODO RANDOMICO CON 90000 ROBOT #################################
 def tipico_randomico():
     global numb_aree, starting_number_robot, starting_number_cluster, total_robot, num_cluster
+    print('inizio la creazione')
+    print('risultato creazione')
     while total_robot < 90000:
         if total_robot < 50000:
             numb_of_cluster = random.randint(20, 50)
@@ -38,7 +107,7 @@ def tipico_randomico():
             for c in range(numb_of_cluster):
                 numb_of_robot = random.randint(500, 1000)
                 starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
-                # print('Area:', numb_aree, ' Cluster: ', c, ' Robot : ', numb_of_robot)
+                print('Area:', numb_aree, ' Cluster: ', c, ' Robot : ', numb_of_robot)
                 total_robot = total_robot + numb_of_robot
             num_cluster.append(numb_of_cluster - 1)
             numb_aree = numb_aree + 1
@@ -60,7 +129,7 @@ def tipico_randomico():
                     else:
                         numb_of_robot = numb_remainder / numb_of_cluster
                     starting_number_robot = Aree[numb_aree].Cluster[c].set_robot(numb_of_robot, starting_number_robot)
-                    # print('Area:', numb_aree, ' Cluster: ', c, ' Robot : ', numb_of_robot)
+                    print('Area:', numb_aree, ' Cluster: ', c, ' Robot : ', numb_of_robot)
                     total_robot = total_robot + numb_of_robot
                     numb_remainder = 90000 - total_robot
                     numb_of_cluster_remainder = numb_of_cluster_remainder - 1
@@ -70,7 +139,7 @@ def tipico_randomico():
                     total_robot = total_robot + numb_of_robot
                     numb_remainder = 90000 - total_robot
                     numb_of_cluster_remainder = numb_of_cluster_remainder - 1
-            # print(total_robot)
+            print('Numero totale di robot al interno del sistema e :  ', total_robot)
 
 
 ########################### CREAZIONE MESSAGGIO ##########################################
@@ -97,10 +166,17 @@ def messaggio():
          "S7": str(Aree[area].Cluster[cluster].Robot[robot].Sensors['S7'])})
     return messaggio_json
 
+
 def messaggio_thread(Areen):
     global numb_aree, num_cluster
-    area = random.randint(0, numb_aree)
-    cluster = random.randint(0, num_cluster[area])
+    if len(Aree) - 1 > 0:
+        area = random.randint(0, len(Aree) - 1)
+    else:
+        area = 0
+    if len(Aree[area].Cluster) - 1 > 0:
+        cluster = random.randint(0, len(Aree[area].Cluster) - 1)
+    else:
+        cluster = 0
     numb_robot = len(Areen[area].Cluster[cluster].Robot)
     if (numb_robot - 1) == 0 or (numb_robot - 1) < 0:
         robot = 0
@@ -120,6 +196,7 @@ def messaggio_thread(Areen):
          "S7": str(Areen[area].Cluster[cluster].Robot[robot].Sensors['S7'])})
     return messaggio_json
 
+
 ####################### INVIO DATI ######################################
 
 def invio(msg):
@@ -127,7 +204,9 @@ def invio(msg):
     conn.request("POST", "/httpHandler.php", msg, headers)
     conn.close()
 
+
 exitFlag = 0
+
 
 def invio_thread(threadName, counter, areen):
     while counter:
@@ -135,17 +214,39 @@ def invio_thread(threadName, counter, areen):
             threadName.exit()
         invio(messaggio_thread(areen))
         counter = counter - 1
+
+
 #################### MAIN PROGRAM #############################
 def main():
-    tipico_randomico()
-    c = 90000
-    while c > 0:
-        invio(messaggio())
-        c -= 1
+    uscita = 1
+    while uscita:
+        opzione_numero = int(input(
+            'inserisci 1 per opzione custom, 2 per opzione tipico semirandomico, 3 per opzione tipico randomico e 4 per aiuto:  '))
+        if opzione_numero == 1:
+            print('Costruiamo il sitema, rispondi alle seguneti domande')
+            custum()
+            uscita = 0
+        elif opzione_numero == 2:
+            print('Costruiamo il sitema, rispondi alla segunete domanda')
+            tipico_semirandomico()
+            uscita = 0
+        elif opzione_numero == 3:
+            print('sto costruendo il sistema attendere')
+            tipico_randomico()
+            uscita = 0
+            print('fine costruzione')
+        elif opzione_numero == 4:
+            print('opzione custom permette di creare il sistema in modo totalmente manuale')
+            print(
+                'opzione tipico semirandomico permette di creare il sistema in modo semiautomatica ti verra richiesto solo il numero dei robot al interno del sistema')
+            print('opzione tipico randomico permette di creare il sistema in modo automatico e totalmente randomico')
+        else:
+            print('errore non so cosa vuoi, riproviamo')
+    print('inizio invio dati per terminare premere ctr + c')
+    while True:
+        main_thread()
 
 def main_thread():
-    print('start program...')
-    tipico_randomico()
     Aree1 = Aree
     Aree2 = Aree
     thread1 = myThread(1, "Thread-1", 45000, Aree1)
@@ -154,6 +255,5 @@ def main_thread():
     thread2.start()
     thread1.join()
     thread2.join()
-    print("Exiting Main Thread")
 
-main_thread()
+main()
