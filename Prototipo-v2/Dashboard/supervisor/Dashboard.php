@@ -53,12 +53,12 @@
             <ul class="nav">
                 <li class="active">
                     <a>
-                        <p>lista Ingegneri</p>
+                        <p>Lista Utenti</p>
                     </a>
                 </li>
                 <li>
                     <a href="AggiungiIngegnere.php">
-                        <p>Aggiungi Ingegnere </p>
+                        <p>Aggiungi Utente </p>
                     </a>
                 </li>
                 <li>
@@ -84,7 +84,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Lista Ingegneri</a>
+                    <a class="navbar-brand" href="#">Lista Utenti</a>
                 </div>
                 <div class="collapse navbar-collapse">
 
@@ -116,7 +116,7 @@
                         <div class="card">
 
                             <div class="header">
-                                <h4 class="title">Ingegneri</h4>
+                                <h4 class="title">Utenti</h4>
                             </div>
                             <div class="content">
                                 <div id="chartHours" class="ct-chart">

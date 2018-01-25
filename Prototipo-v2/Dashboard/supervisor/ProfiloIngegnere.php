@@ -70,7 +70,7 @@
                 </li>
                 <li class="active">
                     <a>
-                        <p>Profilo Ingegnere </p>
+                        <p>Profilo Utente </p>
                     </a>
                 </li>
                 <li>
@@ -99,8 +99,6 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Nome Ing </a>
-                    <!-- qui andrà aggiunto il nome del'ingegnere selezionato -->
                     <a href="Dashboard.php">
                         <button type="button" class="btn btn-default margine_bottone">Back</button>
                     </a>
@@ -110,8 +108,8 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="">
-                                <p>Profile</p>
+                            <a>
+                                <p>Profilo</p>
                             </a>
                         </li>
 
