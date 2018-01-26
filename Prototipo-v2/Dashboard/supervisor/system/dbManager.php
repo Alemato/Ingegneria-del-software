@@ -157,7 +157,7 @@ class dbManager {
 								</div>
 							</div>
 							<div class="col-md-2">
-								<a href="Dashboard.html">
+								<a href="../Dashboard.php">
 									<a class="btn btn-default margine_bottone_salva" id='.$row["username"].' onClick="del_click(this.id, \'Ingegnere\')">Elimina</a>
 								</a>
 							</div>
@@ -187,7 +187,7 @@ class dbManager {
 								</div>
 							</div>
 							<div class="col-md-2">
-								<a href="Dashboard.html">
+								<a href="../Dashboard.php">
 									<a class="btn btn-default margine_bottone_salva" id='.$row["username"].' onClick="del_click(this.id, \'Supervisor\')">Elimina</a>
 								</a>
 							</div>

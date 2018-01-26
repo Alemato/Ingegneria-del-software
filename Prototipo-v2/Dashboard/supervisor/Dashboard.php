@@ -61,12 +61,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="AggiungiIngegnere.php">
+                    <a href="adduser.php">
                         <p>Aggiungi Utente </p>
                     </a>
                 </li>
                 <li>
-                    <a href="../../Controller%20failure/index.php">
+                    <a href="../../Controller%20failure/index.php" target="_blank">   <!-- Qui si deve mettere il link del controller failure che sull'altra macchina -->
                         <p>Controller Failure </p>
                     </a>
                 </li>

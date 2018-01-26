@@ -58,7 +58,7 @@
     <div class="sidebar" data-color="blue">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="Dashboard.html" class="simple-text">
+                <a href="Dashboard.php" class="simple-text">
                     Micron Technology
                 </a>
             </div>
@@ -75,7 +75,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="../../Controller%20failure/index.php">
+                    <a href="../../Controller%20failure/index.php" target="_blank">  <!-- Qui si deve mettere il link del controller failure che sull'altra macchina -->
                         <p>Controller Failure </p>
                     </a>
                 </li>
@@ -116,7 +116,7 @@
                         </li>
 
                         <li>
-                            <a href="Login.php">
+                            <a href="index.php">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -127,7 +127,7 @@
         </nav>
 
 
-        <!-- Corpo -->
+        <!-- Body -->
 
         <div class="content">
             <div class="container-fluid">
