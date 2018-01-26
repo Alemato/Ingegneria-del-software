@@ -14,12 +14,12 @@
 			foreach ($jsonData as $key => $value) {
 				
 				$areaHTML .= '<div class="col-md-3">
-							<div class="card" onclick="window.open(\'Cluster.php?area='.$key.'\', \'_self\');">
+							<div class="card">
 							<div class="header">
 							<h4 class="title">'.$key.'</h4>
 							<h4 class="title">Inefficiency Rate: '.$value.'%</h4>
 							</div>
-							<div class="ct-chart">
+							<div class="ct-chart" style="height: 0% !important;">
 							<div id="canvas-holder" style="width:100%;">
 								<canvas id="chart_'.$key.'"/>
 								<script language="JavaScript">
@@ -46,6 +46,7 @@
 								</script>
 							</div>
 							</div>
+							<button type="Apri" class="btn btn-success btn-block center-block" style="margin-bottom: 10px; width: 50% !important;" onclick="window.open(\'Cluster.php?area='.$key.'\', \'_self\');">Apri</button>
 							<div class="footer">
 										<div class="legend">
 												<i class="fa fa-circle text-success"></i> Efficiency
@@ -77,12 +78,12 @@
 						$jsonData = json_decode($json, true);
 
 						$clusterHTML .= '<div class="col-md-3">
-								<div class="card" onclick="window.open(\'Robot.php?area=A'.$nArea."&cluster=".$jsonData["ClusterName"].'\', \'_self\');">
+								<div class="card">
 								<div class="header">
 								<h4 class="title">'.$jsonData["ClusterName"].'</h4>
 								<h4 class="title">Inefficiency Rate: '.$jsonData["ClusterInef"].'%</h4>
 								</div>
-								<div class="ct-chart">
+								<div class="ct-chart" style="height: 0% !important;">
 								<div id="canvas-holder" style="width:100%;">
 									<canvas id="chart_'.$jsonData["ClusterName"].'"/>
 									<script language="JavaScript">
@@ -109,6 +110,12 @@
 									</script>
 								</div>
 								</div>
+								<button type="Apri" class="btn btn-success btn-block center-block" style="margin-bottom: 10px; width: 50% !important;" onclick="window.open(\'Robot.php?area=A'.$nArea."&cluster=".$jsonData["ClusterName"].'\', \'_self\');">Apri</button>
+								<div class="form-group col-md-8">
+                                        <label  class="sr-only"></label>
+                                        <input class="form-control" value="40">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-1">Submit</button>
 								<div class="footer">
 											<div class="legend">
 													<i class="fa fa-circle text-success"></i> Efficiency
@@ -140,7 +147,7 @@
 								<h4 class="title">'.$key.'</h4>
 								<h4 class="title">Inefficiency Rate: '.$value.'%</h4>
 								</div>
-								<div class="ct-chart">
+								<div class="ct-chart" style="height: 0% !important;">
 								<div id="canvas-holder" style="width:100%;">
 									<canvas id="chart_'.$key.'"/>
 									<script language="JavaScript">
