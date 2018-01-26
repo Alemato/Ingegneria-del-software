@@ -77,7 +77,7 @@
 						$json = file_get_contents($dir . ('A' . ($nArea) . 'C' . ($f+1) . '.json'));
 						$jsonData = json_decode($json, true);
 
-						$clusterHTML .= '<div class="col-md-3">
+						$clusterHTML .= '<div class="col-md-3" id='.$jsonData["ClusterName"].'>
 								<div class="card">
 								<div class="header">
 								<h4 class="title">'.$jsonData["ClusterName"].'</h4>
@@ -141,7 +141,7 @@
 
 			foreach ($data["Robots"] as $key => $value) {
 				
-				$robotHTML .= '<div class="col-md-3">
+				$robotHTML .= '<div class="col-md-3" id='.$key.'>
 								<div class="card">
 								<div class="header">
 								<h4 class="title">'.$key.'</h4>

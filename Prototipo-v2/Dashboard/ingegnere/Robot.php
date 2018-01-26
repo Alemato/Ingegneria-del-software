@@ -5,7 +5,7 @@
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <title>Area</title>
+    <title>Robots</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
@@ -123,9 +123,9 @@
                 <div class="row search_margin">
                     <div class="col-lg-6">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
+                            <input type="text" class="form-control" placeholder="Example R1" id="searchTXT">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Search</button>
+                                <button class="btn btn-default" type="button" id="search">Search</button>
                             </span>
                         </div>
                     </div>
