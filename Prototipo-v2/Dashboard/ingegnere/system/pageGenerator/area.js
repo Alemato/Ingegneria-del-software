@@ -17,4 +17,8 @@ $(document).ready(function () {
     setInterval(function(){
         location.reload();
     },60000);
+
+    $("#search").click(function(){
+        $("#A1").remove();
+    });
 });
