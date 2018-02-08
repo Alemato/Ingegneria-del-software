@@ -1,3 +1,33 @@
+<?php
+
+include("config.php");
+session_start();
+
+if(isset($_SESSION['login_user_en'])){
+    header("location:area.php");
+ }
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+   
+   $myusername = mysqli_real_escape_string($db,$_POST['username']);
+   $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
+   
+   $sql = "SELECT name FROM engineers WHERE username = '$myusername' and password = '$mypassword'";
+   $result = mysqli_query($db,$sql);
+   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+   $active = $row['name'];
+   
+   $count = mysqli_num_rows($result);
+     
+   if($count == 1) {
+      $_SESSION['login_user_en'] = $myusername;
+      
+      header("Location:area.php");
+   }
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -61,14 +91,14 @@
             <div class="container">
                 <div class=" col-sm-4 col-sm-offset-4 login_margin">
 
-                    <form class="form-signin">
+                    <form class="form-signin" action = "" method = "post">
                         <h2 class="form-signin-heading">Please sign in</h2>
-                        <label for="inputEmail" class="sr-only">Email address</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                        <label for="inputEmail" class="sr-only">ID</label>
+                        <input type = "text" name = "username" class="form-control" placeholder="ID" required="" autofocus="">
                         <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-                        <a href="Dashboard.php">
-                            <button class="btn btn-lg btn-primary btn-block margin-top" type="submit">Sign in</button>
+                        <input  type = "password" name = "password" class="form-control" placeholder="Password" required="">
+                        <a>
+                            <button class="btn btn-lg btn-primary btn-block margin-top" type="submit" value="Submit">Sign in</button>
                         </a>
                     </form>
                 </div>

@@ -1,3 +1,7 @@
+<?php
+   include('session.php');
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -52,11 +56,6 @@
             </div>
 
             <ul class="nav">
-                <li>
-                    <a href="Dashboard.php">
-                        <p>Home</p>
-                    </a>
-                </li>
                 <li class="active">
                     <a>
                         <p>Area</p>
@@ -93,7 +92,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="Login.php">
+                            <a href="logout.php">
                                 <p>Log out</p>
                             </a>
                         </li>
