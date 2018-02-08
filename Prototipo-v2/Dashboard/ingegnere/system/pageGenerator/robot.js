@@ -1,3 +1,10 @@
+function emptyString() {
+
+    var text = document.getElementById('searchTXT').value;
+    if(text == "" || text == null) 
+    location.reload();
+}
+
 function getURLParameter(name) {
 	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
 }
@@ -10,7 +17,8 @@ $(document).ready(function () {
         data: {
                 "functionName": "robot",
                 "nArea": getURLParameter("area").replace('A', ''),
-                "nCluster": getURLParameter("cluster").replace('C', '')
+                "nCluster": getURLParameter("cluster").replace('C', ''),
+                "value": 0
             },
         success: function(response) {
 
@@ -56,4 +64,6 @@ $(document).ready(function () {
             }
         }
     });
+
+    document.getElementById("searchTXT").addEventListener("input", emptyString);
 });

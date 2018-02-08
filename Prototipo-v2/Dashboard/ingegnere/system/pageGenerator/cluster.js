@@ -2,6 +2,13 @@ function getURLParameter(name) {
 	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
 }
 
+function emptyString() {
+
+    var text = document.getElementById('searchTXT').value;
+    if(text == "" || text == null) 
+    location.reload();
+}
+
 $(document).ready(function () {
 
     $.ajax({
@@ -10,7 +17,8 @@ $(document).ready(function () {
         data: {
                 "functionName": "cluster",
                 "nArea": getURLParameter('area').replace('A', ''),
-                "nCluster": 0
+                "nCluster": 0,
+                "value": 0
             },
         success: function(response) {
 
@@ -56,4 +64,24 @@ $(document).ready(function () {
             }
         }
     });
+
+    document.getElementById("searchTXT").addEventListener("input", emptyString);
 });
+
+function submitClick(cluster, area) {
+
+    $.ajax({
+        type: "POST",
+        url: 'system/pageGenerator/countFilesSys.php',
+        data: {
+                "functionName": "setInef",
+                "nArea": area,
+                "nCluster": cluster,
+                "value": document.getElementById("sub" + cluster).value 
+            },
+        success: function(response) {
+
+            location.reload();
+        }
+    });
+}

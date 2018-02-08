@@ -1,3 +1,10 @@
+function emptyString() {
+
+    var text = document.getElementById('searchTXT').value;
+    if(text == "" || text == null) 
+    location.reload();
+}
+
 $(document).ready(function () {
 
     $.ajax({
@@ -6,7 +13,8 @@ $(document).ready(function () {
         data: {
                 "functionName": "area",
                 "nArea": 0,
-                "nCluster": 0
+                "nCluster": 0,
+                "value": 0
             },
         success: function(response) {
 
@@ -52,4 +60,6 @@ $(document).ready(function () {
             }
         }
     });
+
+    document.getElementById("searchTXT").addEventListener("input", emptyString);
 });

@@ -11,6 +11,10 @@
 			$json = file_get_contents($dir.'Aree.json');
 			$jsonData = json_decode($json, true);
 
+			uasort($jsonData, function($a, $b) {
+				return $a < $b;
+			});
+
 			foreach ($jsonData as $key => $value) {
 				
 				$areaHTML .= '<div class="col-md-3" id='.$key.'>
@@ -62,11 +66,14 @@
 		}
 
 
-		function clusterFiles($nArea) {
+		function clusterFiles($nArea, $dbManager) {
 
 			$dir = 'data/';
 			$files = scandir($dir);
 			$clusterHTML = "";
+			$HTMLred = "";
+			$HTMLgreen = "";
+			$dbManager->connectDB();
 
 			foreach ($files as $f => $value) {
 				
@@ -77,8 +84,19 @@
 						$json = file_get_contents($dir . ('A' . ($nArea) . 'C' . ($f+1) . '.json'));
 						$jsonData = json_decode($json, true);
 
-						$clusterHTML .= '<div class="col-md-3" id='.$jsonData["ClusterName"].'>
-								<div class="card">
+						$val = $dbManager->getInefCluster($nArea, $f+1);
+						$alert = "";
+						
+						if($val <= $jsonData["ClusterInef"]) {
+
+							$alert = 'style="border: solid 5px #D50000;"';
+						} else {
+
+							$alert = 'style="border: solid 5px #00C853;"';
+						}
+
+						$clusterHTML = '<div class="col-md-3" id='.$jsonData["ClusterName"].'>
+								<div class="card" '.$alert.'>
 								<div class="header">
 								<h4 class="title">'.$jsonData["ClusterName"].'</h4>
 								<h4 class="title">Inefficiency Rate: '.$jsonData["ClusterInef"].'%</h4>
@@ -113,9 +131,9 @@
 								<button type="Apri" class="btn btn-success btn-block center-block" style="margin-bottom: 10px; width: 50% !important;" onclick="window.open(\'Robot.php?area=A'.$nArea."&cluster=".$jsonData["ClusterName"].'\', \'_self\');">Apri</button>
 								<div class="form-group col-md-8">
                                         <label  class="sr-only"></label>
-                                        <input class="form-control" value="40">
+                                        <input class="form-control" id="sub'.$jsonData["ClusterName"].'" value="'.$val.'">
                                 </div>
-                                <button type="submit" class="btn btn-primary mb-1">Submit</button>
+                                <button type="submit" class="btn btn-primary mb-1" onclick="submitClick(\''.$jsonData["ClusterName"].'\',\'A'.($nArea).'\');">Submit</button>
 								<div class="footer">
 											<div class="legend">
 													<i class="fa fa-circle text-success"></i> Efficiency
@@ -125,11 +143,20 @@
 											</div>
 										</div>
 								</div>';
+
+						if($val <= $jsonData["ClusterInef"]) {
+
+							$HTMLred .= $clusterHTML;
+						} else {
+
+							$HTMLgreen .= $clusterHTML;
+						}
 					}
 				}
 			}
 
-			echo $clusterHTML;
+			$dbManager->closeConnection();
+			echo $HTMLred.$HTMLgreen;
 		}
 
 
@@ -138,6 +165,10 @@
 			$json = file_get_contents('data/A' . ($nArea) . 'C' . ($nCluster) . '.json');
 			$data = json_decode($json, true);
 			$robotHTML = "";
+
+			uasort($data["Robots"], function($a, $b) {
+				return $a < $b;
+			});
 
 			foreach ($data["Robots"] as $key => $value) {
 				
