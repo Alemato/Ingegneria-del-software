@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
     <title>Aree</title>
@@ -50,7 +50,7 @@
     <div class="sidebar" data-color="blue">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="Dashboard.php" class="simple-text">
+                <a href="Area.php" class="simple-text">
                     Micron Technology
                 </a>
             </div>
@@ -83,9 +83,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">Area View</a>
-                    <a href="Dashboard.php">
-                        <button type="button" class="btn btn-default margine_bottone">Back</button>
-                    </a>
+
                 </div>
                 <div class="collapse navbar-collapse">
 

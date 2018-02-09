@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
     <title>Robots</title>
@@ -54,7 +54,7 @@
     <div class="sidebar" data-color="blue">
         <div class="sidebar-wrapper">
             <div class="logo">
-                <a href="Dashboard.php" class="simple-text">
+                <a href="Area.php" class="simple-text">
                     Micron Technology
                 </a>
             </div>
