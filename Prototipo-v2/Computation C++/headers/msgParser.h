@@ -17,7 +17,7 @@ class Parser{
 
     Message* Parser::parse(string s){
 
-    string values[10]={};
+    string values[10];
     int i=0;
 
     istringstream message (s);
