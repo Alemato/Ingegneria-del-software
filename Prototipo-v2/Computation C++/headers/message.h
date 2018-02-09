@@ -9,7 +9,7 @@ using namespace std;
 
 class Message{
 
-protected:
+public:
   
   string Id_Area;
   string Id_Cluster;
