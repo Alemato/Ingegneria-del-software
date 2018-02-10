@@ -1,6 +1,6 @@
 /* DEBUG MODE */
 
-#define DEBUG 0 // 0 disable 1 enable
+#define DEBUG 1 // 0 disable 1 enable
 #define VERBOSE 1 // display messages on console
 
 /* PERFORMANCE TWEAKS */
@@ -9,8 +9,10 @@
 #define QUEUE_SLEEP 500 // How much time Queue Consumer will wait in each loop with "Empty Queue"
 
 /* SETTINGS */
+
+#define UPDATE_INTERVAL 15 // Time in sec between every update
 #define BUFSIZE 2048
-#define SERVICE_PORT 222
+#define SERVICE_PORT 222 
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -21,6 +23,7 @@
 #include "./header/robotTree.h" // functions to manipulate robot tree
 #include "./header/msgParser.h" // functions to parse messages
 #include "./header/message.h" // message class
+#include "./header/update.h"
 #include <thread>
 #include <string>
 #include <tbb/concurrent_queue.h> // tbb library to manipulate concurrent_queue
@@ -32,6 +35,7 @@ bool busy3 = false;
 bool busy4 = false;
 bool consumerBusy = false;
 bool resPrinted = false;
+bool updating = false;
 
 int i=0;
 int i1=0,i2=0,i3=0,i4=0;
@@ -78,66 +82,85 @@ void consumeMessage4(Message msg){
 
 void queueConsumer(int j){
 	
+	long t = getCurrentTime();
+
 	/* looping to look for messages to consume */
 
 	while(true){
 		
-		if(!busy1 && !busy2 && !busy3 && !busy4)
-			if (!messageQueue.unsafe_size()){
-				
-				if(VERBOSE && !resPrinted) 
-					{
-						cout<<"Queue is empty - "<<"Message count: "<<to_string(i1+i2+i3+i4)<<"\n";
-						resPrinted = true;
-					}
-				
-				//sleep to low cpu usage
-				usleep(QUEUE_SLEEP);
-				continue;
+		if(((getCurrentTime())-t) >= (UPDATE_INTERVAL*1000)){
 
-			} else resPrinted = false;
-
-		// Consumer-thread #1
-		if(!busy1 && messageQueue.unsafe_size()){
-			busy1 = true;
-			Message result;
-			messageQueue.try_pop(result);
-			std::thread worker1(consumeMessage1,result);
-			worker1.detach();
-
+			std::cout<<"Updating...";
 			
+			clock_t c = clock();
+			
+			systemUpdate();
+
+			std::cout<< "OK \n";
+			std::cout<< "Tempo esecuzione: " + std::to_string((double)(clock() - c)/CLOCKS_PER_SEC)<<"\n";
+
+			t = getCurrentTime();
+
 		}
-		// Consumer-thread #2
-		else if(THREAD_COUNT >= 2 && !busy2 && messageQueue.unsafe_size()){
+
+		else{
+
+			if(!busy1 && !busy2 && !busy3 && !busy4)
+				if (!messageQueue.unsafe_size()){
+					
+					if(VERBOSE && !resPrinted) 
+						{
+							cout<<"Queue is empty - "<<"Message count: "<<to_string(i1+i2+i3+i4)<<"\n";
+							resPrinted = true;
+						}
+					
+					//sleep to low cpu usage
+					usleep(QUEUE_SLEEP);
+					continue;
+
+				} else resPrinted = false;
+
+			// Consumer-thread #1
+			if(!busy1 && messageQueue.unsafe_size()){
 				
-			busy2 = true;
-			Message result;
-			messageQueue.try_pop(result);
-			std::thread worker2(consumeMessage2,result);
-			worker2.detach();			
-		}
-		// Consumer-thread #3
-		else if(THREAD_COUNT >= 3 && !busy3 && messageQueue.unsafe_size()){
-			
-			busy3 = true;
-			Message result;
-			messageQueue.try_pop(result);
-			std::thread worker3(consumeMessage3,result);
-			worker3.detach();			
-		}
-		// Consumer-thread #4
-		else if(THREAD_COUNT >= 4 && !busy4 && messageQueue.unsafe_size()){
-			
-			busy4 = true;
-			Message result;
-			messageQueue.try_pop(result);
-			std::thread worker4(consumeMessage4,result);
-			worker4.detach();			
+				busy1 = true;
+				Message result;
+				messageQueue.try_pop(result);
+				std::thread worker1(consumeMessage1,result);
+				worker1.detach();
+				
+			}
+			// Consumer-thread #2
+			else if(THREAD_COUNT >= 2 && !busy2 && messageQueue.unsafe_size()){
+					
+				busy2 = true;
+				Message result;
+				messageQueue.try_pop(result);
+				std::thread worker2(consumeMessage2,result);
+				worker2.detach();			
+			}
+			// Consumer-thread #3
+			else if(THREAD_COUNT >= 3 && !busy3 && messageQueue.unsafe_size()){
+				
+				busy3 = true;
+				Message result;
+				messageQueue.try_pop(result);
+				std::thread worker3(consumeMessage3,result);
+				worker3.detach();			
+			}
+			// Consumer-thread #4
+			else if(THREAD_COUNT >= 4 && !busy4 && messageQueue.unsafe_size()){
+				
+				busy4 = true;
+				Message result;
+				messageQueue.try_pop(result);
+				std::thread worker4(consumeMessage4,result);
+				worker4.detach();			
+			}
 		}
 		
 	}
-	
-	
+		
 }
 
 int
