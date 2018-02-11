@@ -1,8 +1,6 @@
 #ifndef IRENGINE_H_
 #define IRENGINE_H_
 
-#define TIME_WINDOW 60 // Time in minutes | Calc IR based on (downtime/time-window)*100
-#define DEBUG 0 // Enable debug messages
 
 #include <string>
 #include <stdio.h>
@@ -14,7 +12,7 @@
 #include "robotTree.h"
 #include <math.h>
 #include "./clusterJson.h"
-
+#include "./parameters.h"
 
 using namespace std;
 
