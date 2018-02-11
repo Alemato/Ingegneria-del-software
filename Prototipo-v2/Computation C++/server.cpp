@@ -80,13 +80,13 @@ void queueConsumer(int j){
 
 		if(((getCurrentTime())-t) >= (UPDATE_INTERVAL*1000)){
 
-			std::cout<<"Updating...";
+			std::cout<<"Updating... \n\n";
 			
 			clock_t c = clock();
 			
 			systemUpdate();
 
-			std::cout<< "OK \n";
+			std::cout<< "\nUPDATE OK\n";
 			std::cout<< "Tempo esecuzione: " + std::to_string((double)(clock() - c)/CLOCKS_PER_SEC)<<"\n";
 
 			t = getCurrentTime();
@@ -167,11 +167,11 @@ main(int argc, char **argv)
 	Parser* p = new Parser();
 	Message* msg = new Message();
 
-	//createDummyTree();
-	addRobot("A1","C1","R1",1518304709126);
-	cin.get();
-	cout<<"ir: "<<getBotIr(((general["A1"])["C1"])["R1"],getCurrentTime());
-	cin.get();
+	createDummyTree();
+	//addRobot("A1","C1","R1",1518344488398);
+	//cin.get();
+	//cout<<"ir: "<<getBotIr(((general["A1"])["C1"])["R1"],getCurrentTime());
+	//cin.get();
 	
 	
 	/* Starting consumer queue Thread */
