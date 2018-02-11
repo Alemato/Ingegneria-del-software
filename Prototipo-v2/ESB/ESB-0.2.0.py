@@ -4,6 +4,7 @@ import urllib.parse
 import System
 import threading
 
+
 Aree = []
 total_robot = 0
 numb_aree = 0
@@ -142,7 +143,35 @@ def tipico_randomico():
             print('Numero totale di robot al interno del sistema e :  ', total_robot)
 
 
+############################## MANUTENZIONE ROBOT ########################################
+def manutenzione(robot_name):
+    trovato = 0
+    for a in range(len(Aree)):
+        for c in range(len(Aree[a].Cluster)):
+            for r in Aree[a].Cluster[c].Robot:
+                if r.IDRobot == robot_name:
+                    trovato = 1
+                    r.Sensors = {'S1': 1, 'S2': 1, 'S3': 1, 'S4': 1, 'S5': 1, 'S6': 1,
+                                 'S7': 1}
+                    messaggio = urllib.parse.urlencode(
+                        {"ID_Area": Aree[a].IDArea, "ID_Cluster": Aree[a].Cluster[c].IDCluster,
+                         "Name_Of_Robot": r.IDRobot,
+                         "S1": str(r.Sensors['S1']),
+                         "S2": str(r.Sensors['S2']),
+                         "S3": str(r.Sensors['S3']),
+                         "S4": str(r.Sensors['S4']),
+                         "S5": str(r.Sensors['S5']),
+                         "S6": str(r.Sensors['S6']),
+                         "S7": str(r.Sensors['S7'])})
+                    invio(messaggio)
+    if trovato == 1:
+        return False
+    else:
+        return True
+
 ########################### CREAZIONE MESSAGGIO ##########################################
+
+
 def messaggio():
     global numb_aree, num_cluster
     area = random.randint(0, numb_aree)
@@ -200,9 +229,20 @@ def messaggio_thread(Areen):
 ####################### INVIO DATI ######################################
 
 def invio(msg):
+    ################ CONNESIONE SERVER 1 #####################
     conn = http.client.HTTPConnection("localhost")
     conn.request("POST", "/httpHandler.php", msg, headers)
     conn.close()
+
+    ################ CONNESIONE SERVER 2 #####################
+    # conn1 = http.client.HTTPConnection("localhost")
+    # conn1.request("POST", "/httpHandler.php", msg, headers)
+    # conn1.close()
+
+    ################ CONNESIONE SERVER 3 #####################
+    # conn2 = http.client.HTTPConnection("localhost")
+    # conn2.request("POST", "/httpHandler.php", msg, headers)
+    # conn2.close()
 
 
 exitFlag = 0
@@ -213,47 +253,63 @@ def invio_thread(threadName, counter, areen):
         if exitFlag:
             threadName.exit()
         invio(messaggio_thread(areen))
-        counter = counter - 1
+        # counter = counter - 1
 
 
 #################### MAIN PROGRAM #############################
 def main():
     uscita = 1
     while uscita:
-        opzione_numero = int(input(
-            'inserisci 1 per opzione custom, 2 per opzione tipico semirandomico, 3 per opzione tipico randomico e 4 per aiuto:  '))
-        if opzione_numero == 1:
+        opzione_numero = input(
+            'inserisci 1 per opzione custom, 2 per opzione tipico semirandomico, 3 per opzione tipico randomico e 4 per aiuto:  ')
+        if opzione_numero == '1':
             print('Costruiamo il sitema, rispondi alle seguneti domande')
             custum()
             uscita = 0
-        elif opzione_numero == 2:
+        elif opzione_numero == '2':
             print('Costruiamo il sitema, rispondi alla segunete domanda')
             tipico_semirandomico()
             uscita = 0
-        elif opzione_numero == 3:
+        elif opzione_numero == '3':
             print('sto costruendo il sistema attendere')
             tipico_randomico()
             uscita = 0
             print('fine costruzione')
-        elif opzione_numero == 4:
+        elif opzione_numero == '4':
             print('opzione custom permette di creare il sistema in modo totalmente manuale')
             print(
                 'opzione tipico semirandomico permette di creare il sistema in modo semiautomatica ti verra richiesto solo il numero dei robot al interno del sistema')
             print('opzione tipico randomico permette di creare il sistema in modo automatico e totalmente randomico')
         else:
             print('errore non so cosa vuoi, riproviamo')
-    print('inizio invio dati per terminare premere ctr + c')
+    print('inizio invio dati')
     while True:
         main_thread()
 
+
 def main_thread():
-    Aree1 = Aree
-    Aree2 = Aree
-    thread1 = myThread(1, "Thread-1", 45000, Aree1)
-    thread2 = myThread(2, "Thread-2", 45000, Aree2)
+    thread1 = myThread(1, "Thread-1", True, Aree)
+    thread2 = myThread(2, "Thread-2", True, Aree)
     thread1.start()
     thread2.start()
+    while thread1.isAlive() or thread2.isAlive():
+        opzione_numero = input(
+            'inserisci 1 per effettuare la manutenzione di un robot per terminare il programma premere ctr + c: ')
+        if opzione_numero == '1':
+            print('hai scelto di effetuare la mautenzione ')
+            robot_name = input('inserisci il nome id del robot al quale vuoi effettuare la manutenzione: ')
+            while manutenzione(robot_name):
+                print('non trovato')
+                robot_name = input('inserisci un nome id valido: ')
+                manutenzione(robot_name)
+            print('trovato')
+            print('manutenzione effettuata')
+            print('invio i dati in corso...')
+        else:
+            print('non ho capito')
+            print('invio i dati in corso...')
     thread1.join()
     thread2.join()
+
 
 main()
