@@ -9,6 +9,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include "./message.h"
+#include "./parameters.h"
 
 using namespace std;
 //map of timestamps of a robot
@@ -125,7 +126,7 @@ void addRobot(std::string areaCode,std::string clusterCode,std::string robotCode
     sm["s7"] = *(new sigLineMap());
 
     //setting all signal UP (1) at current timeStamp
-    sm["s1"][timeStamp] = '1';
+    sm["s1"][timeStamp] = '0';
     sm["s2"][timeStamp] = '1';
     sm["s3"][timeStamp] = '1';
     sm["s4"][timeStamp] = '1';
@@ -141,6 +142,8 @@ void addRobot(std::string areaCode,std::string clusterCode,std::string robotCode
 //On new message received update robot sigMap
 
 void updateRobot(sigMap r,Message m){
+
+
 
 }
 
@@ -194,32 +197,35 @@ void createDummyTree(){
     int i=1;
     int count=0;
 
+
+    cout<<"\nCreating "<<N_CLUSTERS<<" CLUSTERS with "<<N_ROBOTS<<" ROBOTS each, starting 15 MINUTES before current time. \n\n";
     clock_t tStart;
     
     tStart=clock();
-    
+    /*
     do{
         addCluster("A01","C"+to_string(i));
         i++;
 
     } while(i!=102); 
+    */
+
+    for(int j=1;j<=1;j++){
     
-    for(int j=1;j<=100;j++){
-    
-        for(int k=1;k<=900;k++){
+        for(int k=1;k<=10;k++){
             
-            addRobot("A01","C"+to_string(j),"R"+to_string(k),1516903200000);
+            addRobot("A01","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(BORN_TIME * 60000));
             count++;    
         }
     }
-    string create = "Tempo creazione: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
+    string create = "Build time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
  
     tStart = clock();
     
       
-    cout << "Tempo report: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
+    cout << "System parsing time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
     cout << create;
-    cout << "numero robot attivi: "<< count << "\n \n";
+    //cout << "numero robot attivi: "<< count << "\n \n";
 
     tStart = clock();
     /*
@@ -228,16 +234,9 @@ void createDummyTree(){
     */
     //cout << ((((general["A01"])["C69"])["R82"])["s1"])[getCurrentTime()-2000] << "\n";
 
-    if (((general["A01"])["C69"]).find("R1") == ((general["A01"])["C69"]).end() ) {
-        
-        cout << "Robot non trovato. \n";
-        
-        }
-        else{
-                cout << "Robot trovato!! \n";
-            }
+    ((general["A01"])["C69"]).find("R1") == ((general["A01"])["C69"]).end();
 
-    cout << "Tempo ricerca: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
+    cout << "Element search time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n\n";
 
 }
 
