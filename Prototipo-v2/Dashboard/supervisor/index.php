@@ -4,7 +4,7 @@ include("config.php");
 session_start();
 
 if(isset($_SESSION['login_user'])){
-    header("location:dashboard.php");
+    header("location:Dashboard.php");
  }
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -22,7 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
    if($count == 1) {
       $_SESSION['login_user'] = $myusername;
       
-      header("Location:dashboard.php");
+      header("Location:Dashboard.php");
    }
 }
 

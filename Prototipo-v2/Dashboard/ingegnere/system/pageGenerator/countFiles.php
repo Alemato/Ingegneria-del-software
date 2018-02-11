@@ -101,31 +101,16 @@
 								<h4 class="title">'.$jsonData["ClusterName"].'</h4>
 								<h4 class="title">Inefficiency Rate: '.$jsonData["ClusterInef"].'%</h4>
 								</div>
-								<div class="ct-chart" style="height: 0% !important;">
-								<div id="canvas-holder" style="width:100%;">
-									<canvas id="chart_'.$jsonData["ClusterName"].'"/>
-									<script language="JavaScript">
-										var ctx'.$jsonData["ClusterName"].' = document.getElementById("chart_'.$jsonData["ClusterName"].'").getContext("2d");
-										var chart_'.$jsonData["ClusterName"].' = new Chart(ctx'.$jsonData["ClusterName"].', {
-											type: "pie",
-											data: {
-												labels: ["Inefficiency ", "Efficiency "],
-												datasets: [{
-													backgroundColor: [
-														"#ff4a55",
-														"#87cb16"
-													],
-													data: ['.$jsonData["ClusterInef"].', '.(100-$jsonData["ClusterInef"]).']
-												}]
-											},
-											options: {
-												legend: {
-													display: false
-												},
-												responsive: true
-											}
-										});
-									</script>
+								<div style="height: 0% !important; padding:10px;">
+								<div style="width:100%;">
+								  <div class="progress">
+									  <div class="progress-bar progress-bar-success" role="progressbar" style="width:'.(100-$jsonData["ClusterInef"]).'%">
+										'.(100-$jsonData["ClusterInef"]).'%
+									  </div>
+									  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:'.$jsonData["ClusterInef"].'%">
+										'.$jsonData["ClusterInef"].'%
+									  </div>
+								  </div>
 								</div>
 								</div>
 								<button type="Apri" class="btn btn-success btn-block center-block" style="margin-bottom: 10px; width: 50% !important;" onclick="window.open(\'Robot.php?area=A'.$nArea."&cluster=".$jsonData["ClusterName"].'\', \'_self\');">Apri</button>
@@ -178,31 +163,16 @@
 								<h4 class="title">'.$key.'</h4>
 								<h4 class="title">Inefficiency Rate: '.$value.'%</h4>
 								</div>
-								<div class="ct-chart" style="height: 0% !important;">
-								<div id="canvas-holder" style="width:100%;">
-									<canvas id="chart_'.$key.'"/>
-									<script language="JavaScript">
-										var ctx'.$key.' = document.getElementById("chart_'.$key.'").getContext("2d");
-										var chart_'.$key.' = new Chart(ctx'.$key.', {
-											type: "pie",
-											data: {
-												labels: ["Inefficiency ", "Efficiency "],
-												datasets: [{
-													backgroundColor: [
-														"#ff4a55",
-														"#87cb16"
-													],
-													data: ['.$value.', '.(100-$value).']
-												}]
-											},
-											options: {
-												legend: {
-													display: false
-												},
-												responsive: true
-											}
-										});
-									</script>
+								<div style="height: 0% !important; padding:10px;">
+								<div style="width:100%;">
+								  <div class="progress">
+									  <div class="progress-bar progress-bar-success" role="progressbar" style="width:'.(100-$value).'%">
+										'.(100-$value).'%
+									  </div>
+									  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:'.$value.'%">
+										'.$value.'%
+									  </div>
+								  </div>
 								</div>
 								</div>
 								<div class="footer">

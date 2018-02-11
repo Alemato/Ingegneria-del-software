@@ -4,7 +4,7 @@ include("config.php");
 session_start();
 
 if(isset($_SESSION['login_user_en'])){
-    header("location:area.php");
+    header("location:Area.php");
  }
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -22,7 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
    if($count == 1) {
       $_SESSION['login_user_en'] = $myusername;
       
-      header("Location:area.php");
+      header("Location:Area.php");
    }
 }
 
