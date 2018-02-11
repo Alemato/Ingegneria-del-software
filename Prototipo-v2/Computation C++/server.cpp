@@ -1,18 +1,4 @@
-/* DEBUG MODE */
 
-#define DEBUG 1 // 0 disable 1 enable
-#define VERBOSE 1 // display messages on console
-
-/* PERFORMANCE TWEAKS */
-
-#define THREAD_COUNT 1 // How many thread will consume the queue 
-#define QUEUE_SLEEP 500 // How much time Queue Consumer will wait in each loop with "Empty Queue"
-
-/* SETTINGS */
-
-#define UPDATE_INTERVAL 15 // Time in sec between every update
-#define BUFSIZE 2048
-#define SERVICE_PORT 222 
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,6 +13,8 @@
 #include <thread>
 #include <string>
 #include <tbb/concurrent_queue.h> // tbb library to manipulate concurrent_queue
+#include "./header/parameters.h" // contains system configuration parameters
+#include "./header/irEngine.h"
 
 
 bool busy1 = false;
@@ -50,7 +38,7 @@ concurrent_queue<Message> messageQueue;
 
 
 void consumeMessage1(Message msg){
-	//addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t1",1516903200000);
+	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t1",1516903200000);
 	if(DEBUG) cout<<"added robot "<<msg.Name_Robot<<" By Thread 1"<<"\n";
 	i1++;
 	busy1 = false;
@@ -88,6 +76,8 @@ void queueConsumer(int j){
 
 	while(true){
 		
+		/* triggers update and pauses consume of messages */
+
 		if(((getCurrentTime())-t) >= (UPDATE_INTERVAL*1000)){
 
 			std::cout<<"Updating...";
@@ -108,7 +98,7 @@ void queueConsumer(int j){
 			if(!busy1 && !busy2 && !busy3 && !busy4)
 				if (!messageQueue.unsafe_size()){
 					
-					if(VERBOSE && !resPrinted) 
+					if(DEBUG && !resPrinted) 
 						{
 							cout<<"Queue is empty - "<<"Message count: "<<to_string(i1+i2+i3+i4)<<"\n";
 							resPrinted = true;
@@ -128,6 +118,7 @@ void queueConsumer(int j){
 				messageQueue.try_pop(result);
 				std::thread worker1(consumeMessage1,result);
 				worker1.detach();
+				worker1.~thread();
 				
 			}
 			// Consumer-thread #2
@@ -173,8 +164,28 @@ main(int argc, char **argv)
 	int fd = 0;				/* our socket */
 	char buf[BUFSIZE];	/* receive buffer */
 
-	Parser p;
+	Parser* p = new Parser();
+	Message* msg = new Message();
 
+	//createDummyTree();
+	addRobot("A1","C1","R1",1518304709126);
+	cin.get();
+	cout<<"ir: "<<getBotIr(((general["A1"])["C1"])["R1"],getCurrentTime());
+	cin.get();
+	
+	
+	/* Starting consumer queue Thread */
+
+	if(!consumerBusy){
+		
+		std::thread queueThread(queueConsumer,0);
+		queueThread.detach();
+		
+		consumerBusy = true;
+
+		if(DEBUG) cout <<"Back to the boss!! \n";
+
+	}
 
 	/* create a UDP socket */
 
@@ -208,33 +219,15 @@ main(int argc, char **argv)
 
 			string message(buf);
 			
-			Parser* p = new Parser();
-
 			/* Building message object from received string */
-
-			Message* msg = new Message();
-
+			
 			msg = (*p).parse(message);
 
-			if(DEBUG) (*msg).info();
+			if(VERBOSE) (*msg).info();
 			
 			/* Pushing into queue */
 
 			messageQueue.push(*msg);
-			
-	
-			/* Starting consumer queue Thread */
-
-			if(!consumerBusy){
-				
-				std::thread queueThread(queueConsumer,0);
-				queueThread.detach();
-				
-				consumerBusy = true;
-
-				if(DEBUG) cout <<"Back to the boss!! \n";
-
-			}
 		
 		}
 		else{
