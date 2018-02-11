@@ -58,7 +58,6 @@ int getBotIr(sigMap currentBot,long istant){
     
     //adding range keys to v1 from signal s1
     for(map<long,char>::iterator it = (currentBot["s1"]).begin(); it != (currentBot["s1"]).end(); ++it) {
-                
                 //find all keys < istant 
                 if((it->first) <= istant && (it->first) >= istant - 3600000 ){ 
                     //add key to tail position in vector
@@ -99,7 +98,6 @@ int getBotIr(sigMap currentBot,long istant){
                     
                     //add key to tail position in vector
                     v4.push_back(it->first);
-             
                     allKeys.push_back(it->first);
 
                 }
@@ -114,8 +112,6 @@ int getBotIr(sigMap currentBot,long istant){
                     //add key to tail position in vector
                    
                     v5.push_back(it->first);
-
-                    
                     allKeys.push_back(it->first);
 
                 }
@@ -130,8 +126,6 @@ int getBotIr(sigMap currentBot,long istant){
                     //add key to tail position in vector
                    
                     v6.push_back(it->first);
-
-                    
                     allKeys.push_back(it->first);
 
                 }
@@ -146,13 +140,12 @@ int getBotIr(sigMap currentBot,long istant){
                     //add key to tail position in vector
                    
                     v7.push_back(it->first);
-
-                    
                     allKeys.push_back(it->first);
 
                 }
     }
     
+    //adding instant to keys
     allKeys.push_back(istant);
     
     std::sort(v1.begin(), v1.end());
@@ -194,46 +187,73 @@ int getBotIr(sigMap currentBot,long istant){
         }
     }
 
-    if(DEBUG) cout<<"Chiamata |upDown| \n";
-   
+    if(DEBUG){
+                for(int i=0;i<allKeys.size()-1;i++){
+                    cout<<"Sectors are: \n";
+                    cout<< sec[i].start<<"-"<<sec[i].end<<"\n";
+                }
+        cout<<"Chiamata |upDown| \n";
+    }
+
+    
+    
+    
     s1 = upDown(allKeys,allKeys.size(),sec,currentBot,v1,"s1",istant);
-    s2 = upDown(allKeys,allKeys.size(),sec,currentBot,v2,"s2",istant);    
-    s3 = upDown(allKeys,allKeys.size(),sec,currentBot,v3,"s3",istant);   
-    s4 = upDown(allKeys,allKeys.size(),sec,currentBot,v4,"s4",istant);   
-    s5 = upDown(allKeys,allKeys.size(),sec,currentBot,v5,"s5",istant);    
-    s6 = upDown(allKeys,allKeys.size(),sec,currentBot,v6,"s6",istant);   
-    s7 = upDown(allKeys,allKeys.size(),sec,currentBot,v7,"s7",istant);
+
+    s2 = upDown(allKeys,allKeys.size(),sec,currentBot,v2,"s2",istant);
    
+    s3 = upDown(allKeys,allKeys.size(),sec,currentBot,v3,"s3",istant);
+
+    s4 = upDown(allKeys,allKeys.size(),sec,currentBot,v4,"s4",istant);
+   
+    s5 = upDown(allKeys,allKeys.size(),sec,currentBot,v5,"s5",istant);
+
+    s6 = upDown(allKeys,allKeys.size(),sec,currentBot,v6,"s6",istant);
+
+    s7 = upDown(allKeys,allKeys.size(),sec,currentBot,v7,"s7",istant);
     
     /* checking down sector and adding duration to downTime */
 
-    for(int i=0;i <= allKeys.size()-1;i++){
-
-        if((s1[i]=='0')|(s2[i]=='0')|(s3[i]=='0')|(s4[i]=='0')|(s5[i]=='0')|(s6[i]=='0')|(s7[i]=='0'))
-            {
-                downTime += secDuration(sec,i);
-            }
-
-        else upTime += secDuration(sec,i);
-    
-    if(DEBUG){
-
-        cout<<"sec"<<to_string(i)<<": ";
+    for(int i=0;i < allKeys.size()-1;i++){
         
-        cout<<"Uptime: "<< to_string(upTime)<<" ";
-        cout<<"DownTime: "<< to_string(downTime)<<"\n";
+        if(allKeys.size() > 1){
             
-        cout <<"DownTime Totale: "<<downTime<<"\n";
-        cout <<"UpTime Totale: "<< upTime<<"\n";
+            /* Finds a sector where all signal are down */
+            
+            if((s1[i]=='0')|(s2[i]=='0')|(s3[i]=='0')|(s4[i]=='0')|(s5[i]=='0')|(s6[i]=='0')|(s7[i]=='0'))
+                {
+                    downTime += secDuration(sec,i);
+                    upTime = 60 - downTime;
+                }
 
+            else {
+                    upTime += secDuration(sec,i);
+                    
+                    /*There's only one sector e.g. Robot has just started or 
+                    has not changed status for at least 1 hour(may change) */
+                    
+                    if(allKeys.size() == 2) downTime = 60 - upTime;
+                
+                }
         }
-        
-    }
+    
+        if(DEBUG){
+                    cout<<"sec"<<to_string(i)<<": ";                
+                    cout<<"Uptime: "<< to_string(upTime)<<" ";
+                    cout<<"DownTime: "<< to_string(downTime)<<"\n";
+        }
 
+    }
+    
     int iR = (int)round(((float) downTime / (float) TIME_WINDOW)*100);
     
-    if(DEBUG) cout<<"Robot IR: "<< iR <<" \% \n";
-   
+    if(DEBUG){
+                cout <<"DownTime Totale: "<<downTime<<"\n";
+                cout <<"UpTime Totale: "<< upTime<<"\n";
+                cout<<"Robot IR: "<< iR <<" \% \n";
+                cout<<"ALL DONE ! \n";
+    }
+
     return iR;
 }
 
@@ -261,18 +281,16 @@ vector<char> upDown (
         &&  seconda chiave <= fine primo settore
         allora valore up/down settore = val s1[prima chiave]
     */
-int currentKey=0;
+        int currentKey=0;
 
-vector<char> result;
-
-
-//printRobotObj(currentBot);
-
-sigLineMap sMap = currentBot[sig];
+        vector<char> result;
 
 
+        //printRobotObj(currentBot);
 
-for(int i=0;i<allKeys.size()-1;i++){
+        sigLineMap sMap = currentBot[sig];
+
+        for(int i=0;i<=allKeys.size()-1;i++){
         
         long validKey = v[currentKey];
         long inizioSettore = sec[i].start;
@@ -315,8 +333,15 @@ for(int i=0;i<allKeys.size()-1;i++){
         sec[i].value = s;
 
     }
-
+    
     for (int i=0;i<secNumber-1;i++) {
+        
+        if(DEBUG){
+            cout<<"settore "<<i<<": "<<(sec[i].value)<<"\n";
+            cout<<"settore "<<i<<" start: "<<sec[i].start<<" end: "<<sec[i].end<<"\n";
+            cout<<"durata settore: "<<secDuration(sec,i)<<"\n";
+            cout<<"valore settore:"<<sec[i].value<<"\n";
+        }
 
         result.push_back(sec[i].value);
     }
