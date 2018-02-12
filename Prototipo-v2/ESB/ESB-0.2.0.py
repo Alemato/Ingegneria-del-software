@@ -263,11 +263,11 @@ def main():
         opzione_numero = input(
             'inserisci 1 per opzione custom, 2 per opzione tipico semirandomico, 3 per opzione tipico randomico e 4 per aiuto:  ')
         if opzione_numero == '1':
-            print('Costruiamo il sitema, rispondi alle seguneti domande')
+            print('Costruiamo il sistema, rispondi alle seguenti domande')
             custum()
             uscita = 0
         elif opzione_numero == '2':
-            print('Costruiamo il sitema, rispondi alla segunete domanda')
+            print('Costruiamo il sistema, rispondi alla seguente domanda')
             tipico_semirandomico()
             uscita = 0
         elif opzione_numero == '3':
@@ -278,7 +278,7 @@ def main():
         elif opzione_numero == '4':
             print('opzione custom permette di creare il sistema in modo totalmente manuale')
             print(
-                'opzione tipico semirandomico permette di creare il sistema in modo semiautomatica ti verra richiesto solo il numero dei robot al interno del sistema')
+                'opzione tipico semirandomico permette di creare il sistema in modo semiautomatico ti verra richiesto solo il numero dei robot al interno del sistema')
             print('opzione tipico randomico permette di creare il sistema in modo automatico e totalmente randomico')
         else:
             print('errore non so cosa vuoi, riproviamo')
