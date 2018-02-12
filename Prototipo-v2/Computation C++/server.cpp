@@ -38,14 +38,14 @@ concurrent_queue<Message> messageQueue;
 
 
 void consumeMessage1(Message msg){
-	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t1",1516903200000);
+	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp));
 	if(DEBUG) cout<<"added robot "<<msg.Name_Robot<<" By Thread 1"<<"\n";
 	i1++;
 	busy1 = false;
 }
 
 void consumeMessage2(Message msg){
-	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t2",1516903200000);
+	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,1516903200000);
 	cout<<"added robot "<<msg.Name_Robot<<" By Thread 2"<<"\n";
 	//printRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t2");
 	i2++;
@@ -53,7 +53,7 @@ void consumeMessage2(Message msg){
 }
 
 void consumeMessage3(Message msg){
-	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t3",1516903200000);
+	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,1516903200000);
 	cout<<"added robot "<<msg.Name_Robot<<" By Thread 3"<<"\n";
 	//printRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t3");
 	i3++;
@@ -61,7 +61,7 @@ void consumeMessage3(Message msg){
 }
 
 void consumeMessage4(Message msg){
-	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t4",1516903200000);
+	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,1516903200000);
 	cout<<"added robot "<<msg.Name_Robot<<" By Thread 4"<<"\n";
 	//printRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t3");
 	i4++;
@@ -168,6 +168,7 @@ main(int argc, char **argv)
 	Message* msg = new Message();
 
 	createDummyTree();
+	
 	//addRobot("A1","C1","R1",1518344488398);
 	//cin.get();
 	//cout<<"ir: "<<getBotIr(((general["A1"])["C1"])["R1"],getCurrentTime());
