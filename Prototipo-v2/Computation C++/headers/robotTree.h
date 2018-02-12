@@ -126,7 +126,7 @@ void addRobot(std::string areaCode,std::string clusterCode,std::string robotCode
     sm["s7"] = *(new sigLineMap());
 
     //setting all signal UP (1) at current timeStamp
-    sm["s1"][timeStamp] = '0';
+    sm["s1"][timeStamp] = '1';
     sm["s2"][timeStamp] = '1';
     sm["s3"][timeStamp] = '1';
     sm["s4"][timeStamp] = '1';
@@ -194,10 +194,6 @@ void printByArea(std::string areaCode){
 
 void createDummyTree(){
 
-    int i=1;
-    int count=0;
-
-
     cout<<"\nCreating "<<N_CLUSTERS<<" CLUSTERS with "<<N_ROBOTS<<" ROBOTS each, starting 15 MINUTES before current time. \n\n";
     clock_t tStart;
     
@@ -210,12 +206,12 @@ void createDummyTree(){
     } while(i!=102); 
     */
 
-    for(int j=1;j<=1;j++){
+    for(int j=1;j<=N_CLUSTERS;j++){
     
-        for(int k=1;k<=10;k++){
+        for(int k=1;k<=N_ROBOTS;k++){
             
-            addRobot("A01","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(BORN_TIME * 60000));
-            count++;    
+            //addRobot("A1","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(BORN_TIME * 60000));   
+            addRobot("A1","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(rand() % 2700000+1));   
         }
     }
     string create = "Build time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
@@ -234,9 +230,9 @@ void createDummyTree(){
     */
     //cout << ((((general["A01"])["C69"])["R82"])["s1"])[getCurrentTime()-2000] << "\n";
 
-    ((general["A01"])["C69"]).find("R1") == ((general["A01"])["C69"]).end();
+    //((general["A01"])["C69"]).find("R1") == ((general["A01"])["C69"]).end();
 
-    cout << "Element search time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n\n";
+    //cout << "Element search time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n\n";
 
 }
 

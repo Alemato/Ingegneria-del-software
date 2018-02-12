@@ -23,5 +23,5 @@
 //file: robotTree.h method: generateDummyTree()
 
 #define BORN_TIME 15 //time in minutes used to calc: ARRIVE_ISTANT = (CURRENT_TIME - BORN_TIME) 
-#define N_CLUSTERS 1 //cluster number
-#define N_ROBOTS 10 //robot number per cluster
+#define N_CLUSTERS 100 //cluster number
+#define N_ROBOTS 900 //robot number per cluster
