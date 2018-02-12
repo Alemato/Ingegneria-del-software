@@ -108,7 +108,7 @@ void printRobotInstant(string area, string cluster, string robot,long timestamp)
 
 //aggiungere un robot alla mappa cluster 
 
-void addRobot(std::string areaCode,std::string clusterCode,std::string robotCode,long timeStamp) {
+void addRobot(std::string areaCode,std::string clusterCode,std::string robotCode,long timeStamp,Message m) {
 
     //getting current time
     //long timeStamp = getCurrentTime();
@@ -126,13 +126,26 @@ void addRobot(std::string areaCode,std::string clusterCode,std::string robotCode
     sm["s7"] = *(new sigLineMap());
 
     //setting all signal UP (1) at current timeStamp
-    sm["s1"][timeStamp] = '1';
-    sm["s2"][timeStamp] = '1';
-    sm["s3"][timeStamp] = '1';
-    sm["s4"][timeStamp] = '1';
-    sm["s5"][timeStamp] = '1';
-    sm["s6"][timeStamp] = '1';
-    sm["s7"][timeStamp] = '1';
+    if(m.S1=="0") sm["s1"][timeStamp-(BORN_TIME*60000)] = '0';
+        else sm["s1"][timeStamp-(BORN_TIME*60000)] = '1';
+
+    if(m.S2=="0") sm["s2"][timeStamp-(BORN_TIME*60000)] = '0';
+        else sm["s2"][timeStamp-(BORN_TIME*60000)] = '1';
+    
+    if(m.S3=="0") sm["s3"][timeStamp-(BORN_TIME*60000)] = '0';
+        else sm["s3"][timeStamp-(BORN_TIME*60000)] = '1';
+    
+    if(m.S4=="0") sm["s4"][timeStamp-(BORN_TIME*60000)] = '0';
+        else sm["s4"][timeStamp-(BORN_TIME*60000)] = '1';
+    
+    if(m.S5=="0") sm["s5"][timeStamp-(BORN_TIME*60000)] = '0';
+        else sm["s5"][timeStamp-(BORN_TIME*60000)] = '1';
+
+    if(m.S6=="0") sm["s6"][timeStamp-(BORN_TIME*60000)] = '0';
+        else sm["s6"][timeStamp-(BORN_TIME*60000)] = '1';
+    
+    if(m.S7=="0") sm["s7"][timeStamp-(BORN_TIME*60000)] = '0';
+        else sm["s7"][timeStamp-(BORN_TIME*60000)] = '1';
 
     //selected single element of a cluster and assignes a signal map
     ((general[areaCode])[clusterCode])[robotCode] = sm;
@@ -141,10 +154,30 @@ void addRobot(std::string areaCode,std::string clusterCode,std::string robotCode
 
 //On new message received update robot sigMap
 
-void updateRobot(sigMap r,Message m){
-
-
-
+void updateRobot(std::string area,std::string cluster,std::string robot,long timeStamp,Message m){
+    
+    if(m.S1=="0") (((((general[area])[cluster])[robot])["s1"])[timeStamp]) = '0';
+        else (((((general[area])[cluster])[robot])["s1"])[timeStamp]) = '1';
+    
+    if(m.S2=="0") (((((general[area])[cluster])[robot])["s2"])[timeStamp]) = '0';
+        else (((((general[area])[cluster])[robot])["s2"])[timeStamp]) = '1';
+    
+    if(m.S3=="0") (((((general[area])[cluster])[robot])["s3"])[timeStamp]) = '0';
+        else (((((general[area])[cluster])[robot])["s3"])[timeStamp]) = '1';
+    
+    if(m.S4=="0") (((((general[area])[cluster])[robot])["s4"])[timeStamp]) = '0';
+        else (((((general[area])[cluster])[robot])["s4"])[timeStamp]) = '1';
+    
+    if(m.S5=="0") (((((general[area])[cluster])[robot])["s5"])[timeStamp]) = '0';
+        else (((((general[area])[cluster])[robot])["s5"])[timeStamp]) = '1';
+    
+    if(m.S6=="0") (((((general[area])[cluster])[robot])["s6"])[timeStamp]) = '0';
+        else (((((general[area])[cluster])[robot])["s6"])[timeStamp]) = '1';
+    
+    if(m.S7=="0") (((((general[area])[cluster])[robot])["s7"])[timeStamp]) = '0';
+        else (((((general[area])[cluster])[robot])["s7"])[timeStamp]) = '1';
+    
+    cout<<"robot updated\n";
 }
 
 void printByArea(std::string areaCode){
@@ -209,9 +242,9 @@ void createDummyTree(){
     for(int j=1;j<=N_CLUSTERS;j++){
     
         for(int k=1;k<=N_ROBOTS;k++){
-            
+            Message m;
             //addRobot("A1","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(BORN_TIME * 60000));   
-            addRobot("A1","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(rand() % 2700000+1));   
+            addRobot("A1","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(rand() % 2700000+1),m);   
         }
     }
     string create = "Build time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
@@ -238,7 +271,8 @@ void createDummyTree(){
 
 void addSingleRobot(){
     static int i=0,j=0;
-    addRobot("A1","C"+i,"R"+j,1516903200000);
+    Message m;
+    addRobot("A1","C"+i,"R"+j,1516903200000,m);
     i++;
     i++;
     j++;

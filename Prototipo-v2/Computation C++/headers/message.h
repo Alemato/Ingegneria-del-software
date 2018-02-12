@@ -5,23 +5,26 @@
 #include <string>
 #include <sstream>
 
-using namespace std;
 
 class Message{
 
 public:
   
-  string Id_Area;
-  string Id_Cluster;
-  string Name_Robot;
-  string S1,S2,S3,S4,S5,S6,S7;
+  std::string Id_Area;
+  std::string Id_Cluster;
+  std::string Name_Robot;
+  std::string S1,S2,S3,S4,S5,S6,S7;
+  std::string timeStamp;
 
 public:
-  Message ( string Area,
-            string Cluster,
-            string Robot,
-            string S_1, string S_2, string S_3,string S_4, string S_5, string S_6, string S_7)
-              : Id_Area (Area),
+  Message ( std::string timeStamp,
+            std::string Area,
+            std::string Cluster,
+            std::string Robot,
+            std::string S_1, std::string S_2, std::string S_3,
+            std::string S_4, std::string S_5, std::string S_6, std::string S_7)
+              : timeStamp (timeStamp),
+                Id_Area (Area),
                 Id_Cluster (Cluster),
                 Name_Robot (Robot),
                 S1 (S_1),
@@ -33,7 +36,7 @@ public:
                 S7 (S_7)
               {}
   Message () {}
-  void init(string,string,string,string,string,string,string,string,string,string);
+  void init(std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string,std::string);
   void info();
 
 };
@@ -41,19 +44,20 @@ public:
 
   void Message::info(){
 
-    cout << "Id_Area: " << Id_Area << endl;
-    cout << "Id_Cluster: " << Id_Cluster << endl;
-    cout << "Name_Robot: " << Name_Robot << endl;
+    std::cout << "TimeStamp: " << timeStamp << std::endl;
+    std::cout << "Id_Area: " << Id_Area << std::endl;
+    std::cout << "Id_Cluster: " << Id_Cluster << std::endl;
+    std::cout << "Name_Robot: " << Name_Robot << std::endl;
 
-    cout << "SEGNALI \n";
+    std::cout << "SEGNALI \n";
     
-    cout << "S1: " << S1 << endl;
-    cout << "S2: " << S2 << endl;
-    cout << "S3: " << S3 << endl;
-    cout << "S4: " << S4 << endl;
-    cout << "S5: " << S5 << endl;
-    cout << "S6: " << S6 << endl;
-    cout << "S7: " << S7 << endl;
+    std::cout << "S1: " << S1 << std::endl;
+    std::cout << "S2: " << S2 << std::endl;
+    std::cout << "S3: " << S3 << std::endl;
+    std::cout << "S4: " << S4 << std::endl;
+    std::cout << "S5: " << S5 << std::endl;
+    std::cout << "S6: " << S6 << std::endl;
+    std::cout << "S7: " << S7 << std::endl;
 
   }
 

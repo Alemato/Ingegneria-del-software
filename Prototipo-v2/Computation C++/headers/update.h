@@ -98,7 +98,7 @@ void systemUpdate(){
             
             createJson(j);
 
-            std::cout<< "Tempo esportazione json: " + std::to_string((double)(clock() - t)/CLOCKS_PER_SEC)<<"\n";
+            std::cout<< "Json Creation time: " + std::to_string((double)(clock() - t)/CLOCKS_PER_SEC)<<"\n";
             
             //if(j!=nullptr) 
             //else cout<<"\nj is null\n";
