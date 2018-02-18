@@ -33,37 +33,62 @@ using namespace tbb;
 
 
 //queue holding messages
-concurrent_queue<Message> messageQueue;
+concurrent_queue<Message*> messageQueue;
 
 
 
 void consumeMessage1(Message msg){
-	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp));
-	if(DEBUG) cout<<"added robot "<<msg.Name_Robot<<" By Thread 1"<<"\n";
+
+	if(((general[msg.Id_Area])[msg.Id_Cluster]).find(msg.Name_Robot) != ((general[msg.Id_Area])[msg.Id_Cluster]).end()){
+		cout<<"il robot esiste! \n";
+		updateRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
+	}
+	else {
+			addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
+			if(DEBUG) cout<<"added robot "<<msg.Name_Robot<<" By Thread 1"<<"\n";
+	}
 	i1++;
 	busy1 = false;
 }
 
 void consumeMessage2(Message msg){
-	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,1516903200000);
-	cout<<"added robot "<<msg.Name_Robot<<" By Thread 2"<<"\n";
-	//printRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t2");
+
+	if(((general[msg.Id_Area])[msg.Id_Cluster]).find(msg.Name_Robot) != ((general[msg.Id_Area])[msg.Id_Cluster]).end()){
+		cout<<"il robot esiste! \n";
+		updateRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
+	}
+	else {
+			addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
+			if(DEBUG) cout<<"added robot "<<msg.Name_Robot<<" By Thread 1"<<"\n";
+	}
 	i2++;
 	busy2 = false;
 }
 
 void consumeMessage3(Message msg){
-	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,1516903200000);
-	cout<<"added robot "<<msg.Name_Robot<<" By Thread 3"<<"\n";
-	//printRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t3");
+
+	if(((general[msg.Id_Area])[msg.Id_Cluster]).find(msg.Name_Robot) != ((general[msg.Id_Area])[msg.Id_Cluster]).end()){
+		cout<<"il robot esiste! \n";
+		updateRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
+	}
+	else {
+			addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
+			if(DEBUG) cout<<"added robot "<<msg.Name_Robot<<" By Thread 1"<<"\n";
+	}
 	i3++;
 	busy3 = false;
 }
 
 void consumeMessage4(Message msg){
-	addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,1516903200000);
-	cout<<"added robot "<<msg.Name_Robot<<" By Thread 4"<<"\n";
-	//printRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot+"-t3");
+
+	if(((general[msg.Id_Area])[msg.Id_Cluster]).find(msg.Name_Robot) != ((general[msg.Id_Area])[msg.Id_Cluster]).end()){
+		cout<<"il robot esiste! \n";
+		updateRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
+	}
+	else {
+			addRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
+			if(DEBUG) cout<<"added robot "<<msg.Name_Robot<<" By Thread 1"<<"\n";
+	}
 	i4++;
 	busy4 = false;
 }
@@ -88,6 +113,8 @@ void queueConsumer(int j){
 
 			std::cout<< "\nUPDATE OK\n";
 			std::cout<< "Tempo esecuzione: " + std::to_string((double)(clock() - c)/CLOCKS_PER_SEC)<<"\n";
+			printf("\nwaiting on port %d\n", SERVICE_PORT);
+
 
 			t = getCurrentTime();
 
@@ -114,40 +141,43 @@ void queueConsumer(int j){
 			if(!busy1 && messageQueue.unsafe_size()){
 				
 				busy1 = true;
-				Message result;
+				Message* result;
 				messageQueue.try_pop(result);
-				std::thread worker1(consumeMessage1,result);
+				std::thread worker1(consumeMessage1,(*result));
+				delete result;
 				worker1.detach();
 				worker1.~thread();
 				
 			}
+			
 			// Consumer-thread #2
 			else if(THREAD_COUNT >= 2 && !busy2 && messageQueue.unsafe_size()){
 					
 				busy2 = true;
-				Message result;
+				Message* result;
 				messageQueue.try_pop(result);
-				std::thread worker2(consumeMessage2,result);
+				std::thread worker2(consumeMessage2,(*result));
 				worker2.detach();			
 			}
 			// Consumer-thread #3
 			else if(THREAD_COUNT >= 3 && !busy3 && messageQueue.unsafe_size()){
 				
 				busy3 = true;
-				Message result;
+				Message* result;
 				messageQueue.try_pop(result);
-				std::thread worker3(consumeMessage3,result);
+				std::thread worker3(consumeMessage3,(*result));
 				worker3.detach();			
 			}
 			// Consumer-thread #4
 			else if(THREAD_COUNT >= 4 && !busy4 && messageQueue.unsafe_size()){
 				
 				busy4 = true;
-				Message result;
+				Message* result;
 				messageQueue.try_pop(result);
-				std::thread worker4(consumeMessage4,result);
+				std::thread worker4(consumeMessage4,(*result));
 				worker4.detach();			
 			}
+			
 		}
 		
 	}
@@ -167,7 +197,10 @@ main(int argc, char **argv)
 	Parser* p = new Parser();
 	Message* msg = new Message();
 
-	createDummyTree();
+	
+	cout<<"\nStarting Server...\n";
+
+	if(DUMMY) createDummyTree();
 	
 	//addRobot("A1","C1","R1",1518344488398);
 	//cin.get();
@@ -178,18 +211,18 @@ main(int argc, char **argv)
 	/* Starting consumer queue Thread */
 
 	if(!consumerBusy){
-		
+		cout<<"Starting Message Queue Handler...";
 		std::thread queueThread(queueConsumer,0);
 		queueThread.detach();
 		
 		consumerBusy = true;
 
-		if(DEBUG) cout <<"Back to the boss!! \n";
-
+		if(DEBUG) cout <<"\nBack to the boss!! \n";
+		cout<<"OK\n";
 	}
 
 	/* create a UDP socket */
-
+	cout<<"Creating socket...";
 	if ((fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
 		perror("cannot create socket\n");
 		return 0;
@@ -206,7 +239,8 @@ main(int argc, char **argv)
 		perror("bind failed");
 		return 0;
 	}
-	
+	cout<<"OK\n";
+	cout<<"\nSYSTEM READY\n\n";
 	/* looping to receive data */
 
 	for (;;) {
@@ -224,12 +258,19 @@ main(int argc, char **argv)
 			
 			msg = (*p).parse(message);
 
-			if(VERBOSE) (*msg).info();
-			
+			if(VERBOSE)  {
+				cout<<"\nMessage received from robot: "<<((*msg).Name_Robot)<<" Cluster: "<<((*msg).Id_Cluster)<<" Area: "<<((*msg).Id_Area)<<"\n\n";
+				if(MSG_INFO){(*msg).info();
+					cout<<"\n\n";
+				}
+			}
 			/* Pushing into queue */
 
-			messageQueue.push(*msg);
-		
+			messageQueue.push(msg);
+
+			
+			
+
 		}
 		else{
 
