@@ -95,12 +95,6 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="">
-                                <p>Profile</p>
-                            </a>
-                        </li>
-
-                        <li>
                             <a href="logout.php">
                                 <p>Log out</p>
                             </a>

@@ -109,11 +109,6 @@
 
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="">
-                                <p>Profile</p>
-                            </a>
-                        </li>
 
                         <li>
                             <a href="index.php">

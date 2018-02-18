@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Feb 11, 2018 alle 20:29
+-- Creato il: Feb 12, 2018 alle 12:38
 -- Versione del server: 10.1.28-MariaDB
 -- Versione PHP: 7.1.11
 
@@ -33,13 +33,6 @@ CREATE TABLE `areas` (
   `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dump dei dati per la tabella `areas`
---
-
-INSERT INTO `areas` (`id`, `name`) VALUES
-(1, 'A1');
-
 -- --------------------------------------------------------
 
 --
@@ -52,14 +45,6 @@ CREATE TABLE `clusters` (
   `name` text NOT NULL,
   `inef` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `clusters`
---
-
-INSERT INTO `clusters` (`id`, `idA`, `name`, `inef`) VALUES
-(1, 1, 'C1', 60),
-(2, 1, 'C2', 60);
 
 -- --------------------------------------------------------
 

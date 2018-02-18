@@ -21,7 +21,7 @@
         <meta name="robots" content="noindex">
         <meta charset="utf-8">
         <title>Controller Failure</title>
-        <meta http-equiv="refresh" content="5">
+        <meta http-equiv="refresh" content="20">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/bootstrap-theme.css" rel="stylesheet">
     </head>

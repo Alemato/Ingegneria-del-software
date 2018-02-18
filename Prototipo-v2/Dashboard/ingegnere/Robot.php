@@ -92,9 +92,6 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">Robot View</a>
-                    <a href="Cluster.php">
-                        <button type="button" class="btn btn-default margine_bottone">Back</button>
-                    </a>
                 </div>
                 <div class="collapse navbar-collapse">
 

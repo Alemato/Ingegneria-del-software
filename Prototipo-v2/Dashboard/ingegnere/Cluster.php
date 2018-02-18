@@ -91,9 +91,6 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">Cluster View</a>
-                    <a href="Area.php">
-                        <button type="button" class="btn btn-default margine_bottone">Back</button>
-                    </a>
                 </div>
                 <div class="collapse navbar-collapse">
 
