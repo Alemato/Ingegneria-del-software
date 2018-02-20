@@ -15,8 +15,9 @@
 #define QUEUE_SLEEP 500 // How much time Queue Consumer will wait in each loop with "Empty Queue"
 
 /* IR */
-#define TIME_WINDOW 60 // Time in minutes | Calc IR based on (downtime/time-window)*100
-#define UPDATE_INTERVAL 8 // Time in sec between every update
+#define TIME_WINDOW 1 // Time in minutes | Calc IR based on (downtime/time-window)*100
+#define UPDATE_INTERVAL 2 // Time in sec between every update
+#define JSON_PATH "./json/"
 
 /* SIMULATION */
 
@@ -26,3 +27,5 @@
 #define DUMMY 0 // set to '1' to create a dummy tree with following 2 parameters
 #define N_CLUSTERS 100 //cluster number in dummy tree
 #define N_ROBOTS 900 //robot number per cluster in dummy tree
+
+

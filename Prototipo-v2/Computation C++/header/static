@@ -1,0 +1,32 @@
+        if(i==0 && v[i] > istant-3600000 && secNumber-1 != 1){
+            
+            cout<<"cavallo \n";
+            if(sMap[v[i]] == '1') s = '0';
+                else s = '1';
+        }
+        
+        else if(v[currentKey] == sec[i].start){
+            
+            s = sMap[v[currentKey]];
+            cout<<"current 1 caso: "<<currentKey<<"\n";
+        } 
+
+        else if(v[currentKey+1] == sec[i].end && currentKey+1 < v.size()){ 
+            
+            s = sMap[v[currentKey]];
+            currentKey++;
+            cout<<"current 2 caso (incr): "<<currentKey<<"\n";
+        }
+
+        else if(v[currentKey+1] > sec[i].end && currentKey+1 < v.size()){
+           
+            s = sMap[v[currentKey]];
+            cout<<"3 \n";
+        }
+     
+        else{
+           
+            s = sMap[v[currentKey-1]];
+            cout<<"4 \n";
+        }
+            sec[i].value = s;

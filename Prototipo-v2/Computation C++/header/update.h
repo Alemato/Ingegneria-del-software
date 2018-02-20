@@ -11,7 +11,6 @@
 #include "robotTree.h"
 #include <math.h>
 #include <thread>
-#include "./clusterJson.h"
 #include "./irEngine.h"
 #include "./parameters.h" // contains system configuration parameters
 #include "./json.h"
@@ -152,7 +151,7 @@ void createJson(nlohmann::json j){
     json.close();
     */
 
-    ofstream json ("/opt/lampp/htdocs/Dashboard/ingegnere/system/pageGenerator/data/" + areaName + clusterName + extension);
+    ofstream json (JSON_PATH + areaName + clusterName + extension);
 
     if (json.is_open())
     {

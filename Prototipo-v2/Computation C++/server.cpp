@@ -199,6 +199,49 @@ main(int argc, char **argv)
 
 	
 	cout<<"\nStarting Server...\n";
+	
+	/*
+	std::map<long,char> timeMap1;
+    std::map<long,char> timeMap2;
+    std::map<long,char> timeMap3;
+
+	//sig 1
+    timeMap1[1516899000000]='0'; //17.50
+    timeMap1[1516899600000]='1'; //18.00
+    timeMap1[1516900440000]='0'; //18.14
+    timeMap1[1516901040000]='1'; //18.24
+    //timeMap1[1516901880000]='0'; //18.38
+    //timeMap1[1516902840000]='1'; //18.54
+    //timeMap1[1516903500000]='0'; //19.05
+    
+    //sig 2
+    timeMap2[1516899300000]='0'; //17.55
+    timeMap2[1516899600000]='1'; //18.00
+    timeMap2[1516900620000]='0'; //18.17
+    timeMap2[1516901400000]='1'; //18.30
+    timeMap2[1516902300000]='0'; //18.45
+    timeMap2[1516902900000]='1'; //18.55
+    timeMap2[1516903500000]='0'; //19.05
+    
+    //sig 3
+    timeMap3[1516899000000]='0'; //17.50
+    timeMap3[1516899300000]='1'; //17.55
+    timeMap3[1516900140000]='0'; //18.09
+    timeMap3[1516901100000]='1'; //18.25
+    timeMap3[1516902180000]='0'; //18.43
+    timeMap3[1516904700000]='1'; //19.25
+
+	((((general["A1"])["C1"])["R1"])["s1"]) = timeMap1;
+	((((general["A1"])["C1"])["R1"])["s2"]) = timeMap2;
+	((((general["A1"])["C1"])["R1"])["s3"]) = timeMap3;
+	((((general["A1"])["C1"])["R1"])["s4"]) = timeMap1;
+	((((general["A1"])["C1"])["R1"])["s5"]) = timeMap2;
+	((((general["A1"])["C1"])["R1"])["s6"]) = timeMap3;
+	((((general["A1"])["C1"])["R1"])["s7"]) = timeMap1;
+
+	getBotIr((((general["A1"])["C1"])["R1"]),1516903200000);//19:00
+
+	*/
 
 	if(DUMMY) createDummyTree();
 	
@@ -265,11 +308,7 @@ main(int argc, char **argv)
 				}
 			}
 			/* Pushing into queue */
-
 			messageQueue.push(msg);
-
-			
-			
 
 		}
 		else{

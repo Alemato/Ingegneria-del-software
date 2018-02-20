@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include "./message.h"
 #include "./parameters.h"
+#include <cstring>
 
 using namespace std;
 //map of timestamps of a robot
@@ -156,7 +157,55 @@ void addRobot(std::string areaCode,std::string clusterCode,std::string robotCode
 
 void updateRobot(std::string area,std::string cluster,std::string robot,long timeStamp,Message m){
     
-    if(m.S1=="0") (((((general[area])[cluster])[robot])["s1"])[timeStamp]) = '0';
+    map<long, char>::iterator itr;
+
+    //check if new value is the as the oldest
+    itr = ((((general[area])[cluster])[robot])["s1"]).end();
+    itr--;
+    if(m.S1 == string(1,(itr->second))) cout<<"Il segnale 1 non è cambiato \n";
+        else (((((general[area])[cluster])[robot])["s1"])[timeStamp]) = (m.S1)[0];
+    cout<<"S1 ora vale: "<<(m.S1)[0]<<"\n";
+    
+    itr = ((((general[area])[cluster])[robot])["s2"]).end();
+    itr--;
+    if(m.S2 == string(1,(itr->second))) cout<<"Il segnale 2 non è cambiato \n";
+        else (((((general[area])[cluster])[robot])["s2"])[timeStamp]) = (m.S2)[0];
+    cout<<"S2 ora vale: "<<(m.S2)[0]<<"\n";
+
+    itr = ((((general[area])[cluster])[robot])["s3"]).end();
+    itr--;
+    if(m.S3 == string(1,(itr->second))) cout<<"Il segnale 3 non è cambiato \n";
+        else (((((general[area])[cluster])[robot])["s3"])[timeStamp]) = (m.S3)[0];
+    cout<<"S3 ora vale: "<<(m.S3)[0]<<"\n";
+
+    itr = ((((general[area])[cluster])[robot])["s4"]).end();
+    itr--;
+    if(m.S4 == string(1,(itr->second))) cout<<"Il segnale 4 non è cambiato \n";
+        else (((((general[area])[cluster])[robot])["s4"])[timeStamp]) = (m.S4)[0];
+    cout<<"S4 ora vale: "<<(m.S4)[0]<<"\n";
+
+    itr = ((((general[area])[cluster])[robot])["s5"]).end();
+    itr--;
+    if(m.S5 == string(1,(itr->second))) cout<<"Il segnale 5 non è cambiato \n";
+        else (((((general[area])[cluster])[robot])["s5"])[timeStamp]) = (m.S5)[0];
+    cout<<"S5 ora vale: "<<(m.S5)[0]<<"\n";
+
+    itr = ((((general[area])[cluster])[robot])["s6"]).end();
+    itr--;
+    if(m.S6 == string(1,(itr->second))) cout<<"Il segnale 6 non è cambiato \n";
+        else (((((general[area])[cluster])[robot])["s6"])[timeStamp]) = (m.S6)[0];
+    cout<<"S6 ora vale: "<<(m.S6)[0]<<"\n";
+
+    itr = ((((general[area])[cluster])[robot])["s7"]).end();
+    itr--;
+    if(m.S7 == string(1,(itr->second))) cout<<"Il segnale 7 non è cambiato \n";
+        else (((((general[area])[cluster])[robot])["s7"])[timeStamp]) = (m.S7)[0];
+    cout<<"S7 ora vale: "<<(m.S7)[0]<<"\n";
+
+    
+    /*
+    
+     (((((general[area])[cluster])[robot])["s1"])[timeStamp]) = '0';
         else (((((general[area])[cluster])[robot])["s1"])[timeStamp]) = '1';
     
     if(m.S2=="0") (((((general[area])[cluster])[robot])["s2"])[timeStamp]) = '0';
@@ -177,7 +226,9 @@ void updateRobot(std::string area,std::string cluster,std::string robot,long tim
     if(m.S7=="0") (((((general[area])[cluster])[robot])["s7"])[timeStamp]) = '0';
         else (((((general[area])[cluster])[robot])["s7"])[timeStamp]) = '1';
     
+    */
     cout<<"robot updated\n";
+    
 }
 
 void printByArea(std::string areaCode){
