@@ -22,8 +22,9 @@ using namespace std;
     char value;
   };
 
+char lastChange[7];
 
-vector<char> upDown (int,sector*,sigMap,vector<long>,string,long);
+vector<char> upDown (int,sector*,sigMap,vector<long>,string,int,long);
 
 double secDuration(sector*,int);
 
@@ -57,21 +58,33 @@ int getBotIr(sigMap currentBot,long istant){
     //adding range keys to v1 from signal s1
     for(map<long,char>::iterator it = (currentBot["s1"]).begin(); it != (currentBot["s1"]).end(); ++it) {
                 //find all keys < istant 
-                if((it->first) <= istant && (it->first) >= istant - (TIME_WINDOW*60000) ){ 
+                if((it->first) <= istant && (it->first) >= istant - HISTORY*(TIME_WINDOW*60000) ){ 
                     //add key to tail position in vector
                     v1.push_back(it->first);
                     allKeys.push_back(it->first);
+                
+                    if(v1.size()!=0){
+                        lastChange[0] = (it->second);
+                    }            
                 }
     }
+            
     
     //adding range keys to v2 from signal s2
     for(map<long,char>::iterator it = (currentBot["s2"]).begin(); it != (currentBot["s2"]).end(); ++it) {
                 
                 //find all keys < istant 
-                if((it->first) <= istant && (it->first) >= istant - (TIME_WINDOW*60000) ){ 
+                if((it->first) >= istant - HISTORY*(TIME_WINDOW*60000) && (it->first)<=istant){ 
                     //add key to tail position in vector
                     v2.push_back(it->first);
                     allKeys.push_back(it->first);
+                    
+                    //cout<<"Valore last change: "<<(currentBot["s2"])[9999999999999]<<"\n";
+                    //cin.get();
+                    
+                    if(v2.size()!=0){
+                        lastChange[1] = (it->second);
+                    }  
 
                 }
     }
@@ -80,10 +93,14 @@ int getBotIr(sigMap currentBot,long istant){
     for(map<long,char>::iterator it = (currentBot["s3"]).begin(); it != (currentBot["s3"]).end(); ++it) {
                 
                 //find all keys < istant 
-                if((it->first) <= istant && (it->first) >= istant - (TIME_WINDOW*60000) ){ 
+                if((it->first) >= istant - HISTORY*(TIME_WINDOW*60000) && (it->first)<=istant){ 
                     //add key to tail position in vector
                     v3.push_back(it->first);
                     allKeys.push_back(it->first);
+                    
+                    if(v3.size()!=0){
+                        lastChange[2] = (it->second);
+                    }  
 
                 }
     }
@@ -92,11 +109,15 @@ int getBotIr(sigMap currentBot,long istant){
     for(map<long,char>::iterator it = (currentBot["s4"]).begin(); it != (currentBot["s4"]).end(); ++it) {
                 
                 //find all keys < istant 
-                if((it->first) <= istant && (it->first) >= istant - (TIME_WINDOW*60000) ){ 
+                if((it->first) >= istant - HISTORY*(TIME_WINDOW*60000) && (it->first)<=istant){ 
                     
                     //add key to tail position in vector
                     v4.push_back(it->first);
                     allKeys.push_back(it->first);
+                    
+                    if(v4.size()!=0){
+                        lastChange[3] = (it->second);
+                    }  
 
                 }
     }
@@ -105,12 +126,16 @@ int getBotIr(sigMap currentBot,long istant){
     for(map<long,char>::iterator it = (currentBot["s5"]).begin(); it != (currentBot["s5"]).end(); ++it) {
                 
                 //find all keys < istant 
-                if((it->first) <= istant && (it->first) >= istant - (TIME_WINDOW*60000) ){ 
+                if((it->first) >= istant - HISTORY*(TIME_WINDOW*60000) && (it->first)<=istant){ 
                     
                     //add key to tail position in vector
                    
                     v5.push_back(it->first);
                     allKeys.push_back(it->first);
+                    
+                    if(v5.size()!=0){
+                        lastChange[4] = (it->second);
+                    }  
 
                 }
     }
@@ -119,12 +144,16 @@ int getBotIr(sigMap currentBot,long istant){
     for(map<long,char>::iterator it = (currentBot["s6"]).begin(); it != (currentBot["s6"]).end(); ++it) {
                 
                 //find all keys < istant 
-                if((it->first) <= istant && (it->first) >= istant - (TIME_WINDOW*60000) ){ 
+                if((it->first) >= istant - HISTORY*(TIME_WINDOW*60000) && (it->first)<=istant){ 
                     
                     //add key to tail position in vector
                    
                     v6.push_back(it->first);
                     allKeys.push_back(it->first);
+                    
+                    if(v6.size()!=0){
+                        lastChange[5] = (it->second);
+                    }  
 
                 }
     }
@@ -133,12 +162,16 @@ int getBotIr(sigMap currentBot,long istant){
     for(map<long,char>::iterator it = (currentBot["s7"]).begin(); it != (currentBot["s7"]).end(); ++it) {
                 
                 //find all keys < istant 
-                if((it->first) <= istant && (it->first) >= istant - (TIME_WINDOW*60000) ){ 
+                if((it->first) >= istant - HISTORY*(TIME_WINDOW*60000) && (it->first)<=istant){ 
                     
                     //add key to tail position in vector
                    
                     v7.push_back(it->first);
                     allKeys.push_back(it->first);
+                    
+                    if(v7.size()!=0){
+                        lastChange[6] = (it->second);
+                    }  
 
                 }
     }
@@ -199,31 +232,31 @@ int getBotIr(sigMap currentBot,long istant){
     
     
     
-    s1 = upDown(allKeys.size(),sec,currentBot,v1,"s1",istant);
+    s1 = upDown(allKeys.size(),sec,currentBot,v1,"s1",0,istant);
     for(int i : s1) cout<<string(1,i)<<"-";
     cout<<"\n";
 
-    s2 = upDown(allKeys.size(),sec,currentBot,v2,"s2",istant);
+    s2 = upDown(allKeys.size(),sec,currentBot,v2,"s2",1,istant);
     for(int i : s2) cout<<string(1,i)<<"-";
     cout<<"\n";
 
-    s3 = upDown(allKeys.size(),sec,currentBot,v3,"s3",istant);
+    s3 = upDown(allKeys.size(),sec,currentBot,v3,"s3",2,istant);
     for(int i : s3) cout<<string(1,i)<<"-";
     cout<<"\n";
 
-    s4 = upDown(allKeys.size(),sec,currentBot,v4,"s4",istant);
+    s4 = upDown(allKeys.size(),sec,currentBot,v4,"s4",3,istant);
     for(int i : s4) cout<<string(1,i)<<"-";
     cout<<"\n";
 
-    s5 = upDown(allKeys.size(),sec,currentBot,v5,"s5",istant);
+    s5 = upDown(allKeys.size(),sec,currentBot,v5,"s5",4,istant);
     for(int i : s5) cout<<string(1,i)<<"-";
     cout<<"\n";
 
-    s6 = upDown(allKeys.size(),sec,currentBot,v6,"s6",istant);
+    s6 = upDown(allKeys.size(),sec,currentBot,v6,"s6",5,istant);
     for(int i : s6) cout<<string(1,i)<<"-";
     cout<<"\n";
 
-    s7 = upDown(allKeys.size(),sec,currentBot,v7,"s7",istant);
+    s7 = upDown(allKeys.size(),sec,currentBot,v7,"s7",6,istant);
     for(int i : s7) cout<<string(1,i)<<"-";
     cout<<"\n";
     /* checking down sector and adding duration to downTime */
@@ -272,7 +305,9 @@ int getBotIr(sigMap currentBot,long istant){
                     cout<<"upTime: "<<upTime<<"\n";
                     */
                     
-                }else {
+                } else {
+                        //upTime += secDuration(sec,i);
+                        if((downTime - secDuration(sec,i)) >=0) downTime -= secDuration(sec,i);
                         cout<<"Robot UP in settore: "<<i<<"\n";
                         cout<<"duration: "<< secDuration(sec,i)<<"\n";
                     }
@@ -316,11 +351,11 @@ int getBotIr(sigMap currentBot,long istant){
                     cout<<"DownTime: "<< to_string(downTime)<<"\n";
         }
 
-        downTot += downTime;
+        downTot = downTime;
 
     }
     
-    int iR = (int)round(((double) downTime / (double) TIME_WINDOW)*100);
+    int iR = (int)round(((double) downTot / (double) TIME_WINDOW)*100);
     
     if(true){
                 cout <<"DownTime Totale: "<<downTime<<"\n";
@@ -350,6 +385,7 @@ vector<char> upDown (
                 sigMap currentBot, //current bot
                 vector<long> v, //key sequence of signal
                 string sig, //name of signal
+                int sigNumb,
                 long istant //update time
             )
 {
@@ -365,18 +401,26 @@ vector<char> upDown (
         //printRobotObj(currentBot);
 
         sigLineMap sMap = currentBot[sig]; //sigLineMap of current bot
-
-        for(int i=0;i<secNumber-1;i++){
         
-            long validKey = v[currentKey];
-            long inizioSettore = sec[i].start;
-            long fineSettore = sec[i].end;
+        for(int i=0;i<secNumber-1;i++){
+            
+            if(!(v.size()==0)){
+                long validKey = v[currentKey];
+                long inizioSettore = sec[i].start;
+                long fineSettore = sec[i].end;
+            }
             char s='\0';
         
-        
+        //get last state change
+        if(v.size() == 0){
+            //cout<<"Using last key for "<<sig<<" : "<< lastChange[sigNumb];
+            s = lastChange[sigNumb];
+            //cin.get();
+        } 
+
             /*LA PRIMA CHIAVE DISPONIBILE SI TROVA GIA ALL'INTERNO DELL'INTERVALLO DI AGGIORNAMENTO
             PERCIÒ L'ULTIMO CAMBIO DI STATO È AVVENUTO FUORI DALLA FINESTRA DI AGGIORNAMENTO */
-        if(i==0 && v[i] > istant - (TIME_WINDOW*60000) && secNumber-1 != 1){
+        else if(i==0 && v[i] > istant - (TIME_WINDOW*60000) && secNumber-1 != 1){
             
             cout<<"cavallo \n";
             if(sMap[v[i]] == '1') s = '0';

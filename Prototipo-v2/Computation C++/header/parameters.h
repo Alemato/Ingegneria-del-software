@@ -16,7 +16,8 @@
 
 /* IR */
 #define TIME_WINDOW 1 // Time in minutes | Calc IR based on (downtime/time-window)*100
-#define UPDATE_INTERVAL 2 // Time in sec between every update
+#define UPDATE_INTERVAL 1 // Time in sec between every update
+#define HISTORY 1 //how much time will be taken as history to keep last state change (HISTORY * TIME_WINDOW) Eg. 2 * 1h --> i keep 1h as history 
 #define JSON_PATH "./json/"
 
 /* SIMULATION */

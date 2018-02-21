@@ -1,9 +1,9 @@
 {
  "AreaName": "A1",
- "ClusterInef": 78,
+ "ClusterInef": 0,
  "ClusterName": "C1",
  "Robots": {
-  "R3": 78
+  "R3": 0
  }
 }
 
