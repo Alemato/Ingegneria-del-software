@@ -162,72 +162,40 @@ void updateRobot(std::string area,std::string cluster,std::string robot,long tim
     //check if new value is the as the oldest
     itr = ((((general[area])[cluster])[robot])["s1"]).end();
     itr--;
-    if(m.S1 == string(1,(itr->second))) cout<<"Il segnale 1 non è cambiato \n";
+    if(m.S1 == string(1,(itr->second))) {}
         else (((((general[area])[cluster])[robot])["s1"])[timeStamp]) = (m.S1)[0];
-    cout<<"S1 ora vale: "<<(m.S1)[0]<<"\n";
     
     itr = ((((general[area])[cluster])[robot])["s2"]).end();
     itr--;
-    if(m.S2 == string(1,(itr->second))) cout<<"Il segnale 2 non è cambiato \n";
+    if(m.S2 == string(1,(itr->second))) {}
         else (((((general[area])[cluster])[robot])["s2"])[timeStamp]) = (m.S2)[0];
-    cout<<"S2 ora vale: "<<(m.S2)[0]<<"\n";
+
 
     itr = ((((general[area])[cluster])[robot])["s3"]).end();
     itr--;
-    if(m.S3 == string(1,(itr->second))) cout<<"Il segnale 3 non è cambiato \n";
+    if(m.S3 == string(1,(itr->second))) {}
         else (((((general[area])[cluster])[robot])["s3"])[timeStamp]) = (m.S3)[0];
-    cout<<"S3 ora vale: "<<(m.S3)[0]<<"\n";
 
     itr = ((((general[area])[cluster])[robot])["s4"]).end();
     itr--;
-    if(m.S4 == string(1,(itr->second))) cout<<"Il segnale 4 non è cambiato \n";
+    if(m.S4 == string(1,(itr->second))) {}
         else (((((general[area])[cluster])[robot])["s4"])[timeStamp]) = (m.S4)[0];
-    cout<<"S4 ora vale: "<<(m.S4)[0]<<"\n";
+
 
     itr = ((((general[area])[cluster])[robot])["s5"]).end();
     itr--;
-    if(m.S5 == string(1,(itr->second))) cout<<"Il segnale 5 non è cambiato \n";
+    if(m.S5 == string(1,(itr->second))) {}
         else (((((general[area])[cluster])[robot])["s5"])[timeStamp]) = (m.S5)[0];
-    cout<<"S5 ora vale: "<<(m.S5)[0]<<"\n";
 
     itr = ((((general[area])[cluster])[robot])["s6"]).end();
     itr--;
-    if(m.S6 == string(1,(itr->second))) cout<<"Il segnale 6 non è cambiato \n";
+    if(m.S6 == string(1,(itr->second))) {}
         else (((((general[area])[cluster])[robot])["s6"])[timeStamp]) = (m.S6)[0];
-    cout<<"S6 ora vale: "<<(m.S6)[0]<<"\n";
 
     itr = ((((general[area])[cluster])[robot])["s7"]).end();
     itr--;
-    if(m.S7 == string(1,(itr->second))) cout<<"Il segnale 7 non è cambiato \n";
+    if(m.S7 == string(1,(itr->second))) {}
         else (((((general[area])[cluster])[robot])["s7"])[timeStamp]) = (m.S7)[0];
-    cout<<"S7 ora vale: "<<(m.S7)[0]<<"\n";
-
-    
-    /*
-    
-     (((((general[area])[cluster])[robot])["s1"])[timeStamp]) = '0';
-        else (((((general[area])[cluster])[robot])["s1"])[timeStamp]) = '1';
-    
-    if(m.S2=="0") (((((general[area])[cluster])[robot])["s2"])[timeStamp]) = '0';
-        else (((((general[area])[cluster])[robot])["s2"])[timeStamp]) = '1';
-    
-    if(m.S3=="0") (((((general[area])[cluster])[robot])["s3"])[timeStamp]) = '0';
-        else (((((general[area])[cluster])[robot])["s3"])[timeStamp]) = '1';
-    
-    if(m.S4=="0") (((((general[area])[cluster])[robot])["s4"])[timeStamp]) = '0';
-        else (((((general[area])[cluster])[robot])["s4"])[timeStamp]) = '1';
-    
-    if(m.S5=="0") (((((general[area])[cluster])[robot])["s5"])[timeStamp]) = '0';
-        else (((((general[area])[cluster])[robot])["s5"])[timeStamp]) = '1';
-    
-    if(m.S6=="0") (((((general[area])[cluster])[robot])["s6"])[timeStamp]) = '0';
-        else (((((general[area])[cluster])[robot])["s6"])[timeStamp]) = '1';
-    
-    if(m.S7=="0") (((((general[area])[cluster])[robot])["s7"])[timeStamp]) = '0';
-        else (((((general[area])[cluster])[robot])["s7"])[timeStamp]) = '1';
-    
-    */
-    cout<<"robot updated\n";
     
 }
 
@@ -239,7 +207,6 @@ void printByArea(std::string areaCode){
 
     for(map<string,clusters>::iterator it = general.begin(); it != general.end(); ++it) {
                 v.push_back(it->first);
-                cout << it->first << "\n";
     }
     
     v.clear();
@@ -249,7 +216,6 @@ void printByArea(std::string areaCode){
 
     for(map<string,robots>::iterator it = (general[areaCode]).begin(); it != general[areaCode].end(); ++it) {
             v.push_back(it->first);
-            cout << "" << it->first << "\n";
     }
 
     v.clear();
@@ -257,66 +223,30 @@ void printByArea(std::string areaCode){
 
     for(map<string,robots>::iterator it = (general[areaCode]).begin(); it != general[areaCode].end(); ++it) {
             v.push_back(it->first);
-            //cout << "\n" << it->first << "\n";
      
-
     v.clear();
-    cout<<"\n";
-
-    cout<<"Robot attivi "<< areaCode << "|" << it->first<<"\n \n";
-
-    for(auto it2 = (it->second).cbegin(); it2 != (it->second).cend(); ++it2)
-    {
-        std::cout << it2-> first << " " << " \n";
+    
     }
-
-    v.clear();
-    cout<<"\n";
-    }
-
 }
 
 void createDummyTree(){
 
-    cout<<"\nCreating "<<N_CLUSTERS<<" CLUSTERS with "<<N_ROBOTS<<" ROBOTS each, starting 15 MINUTES before current time. \n\n";
+    cout<<"\nCreating "<<N_AREAS<<" AREAS WITH "<<N_CLUSTERS<<" CLUSTERS AND "<<N_ROBOTS<<" ROBOTS each. \n\n";
     clock_t tStart;
     
     tStart=clock();
-    /*
-    do{
-        addCluster("A01","C"+to_string(i));
-        i++;
-
-    } while(i!=102); 
-    */
-
-    for(int j=1;j<=N_CLUSTERS;j++){
-    
-        for(int k=1;k<=N_ROBOTS;k++){
-            Message m;
-            //addRobot("A1","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(BORN_TIME * 60000));   
-            addRobot("A1","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(rand() % 2700000+1),m);   
+    for(int x=1;x<=N_AREAS;x++){
+        for(int j=1;j<=N_CLUSTERS;j++){
+        
+            for(int k=1;k<=N_ROBOTS;k++){
+                Message m;
+                //addRobot("A1","C"+to_string(j),"R"+to_string(k),getCurrentTime()-(BORN_TIME * 60000));   
+                addRobot("A"+to_string(x),"C"+to_string(j),"R"+to_string(k),getCurrentTime(),m);   
+            }
         }
     }
-    string create = "Build time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
- 
-    tStart = clock();
     
-      
-    cout << "System parsing time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
-    cout << create;
-    //cout << "numero robot attivi: "<< count << "\n \n";
-
-    tStart = clock();
-    /*
-    if(((general["A01"])["C69"])["R82"] != "") cout <<"risultato: "<<((general["A01"])["C69"])["R82"]<< "\n";
-    else cout << "Robot non trovato. \n \n";
-    */
-    //cout << ((((general["A01"])["C69"])["R82"])["s1"])[getCurrentTime()-2000] << "\n";
-
-    //((general["A01"])["C69"]).find("R1") == ((general["A01"])["C69"]).end();
-
-    //cout << "Element search time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n\n";
+    cout << "Build time: " + std::to_string((double)(clock() - tStart)/CLOCKS_PER_SEC) + "\n";
 
 }
 
@@ -330,16 +260,5 @@ void addSingleRobot(){
     sleep(1);
     cout << "added \n";
 }
-/*
-int main(void){
-
-    //addArea("A01");
-       
-    while(true){
-        createDummyTree();
-        cin.get();
-    }
-}
-*/
 
 #endif

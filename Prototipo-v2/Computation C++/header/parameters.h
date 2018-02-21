@@ -15,18 +15,18 @@
 #define QUEUE_SLEEP 500 // How much time Queue Consumer will wait in each loop with "Empty Queue"
 
 /* IR */
-#define TIME_WINDOW 1 // Time in minutes | Calc IR based on (downtime/time-window)*100
-#define UPDATE_INTERVAL 1 // Time in sec between every update
+#define TIME_WINDOW 20 // Time in minutes | Calc IR based on (downtime/time-window)*100
+#define UPDATE_INTERVAL 20 // Time in sec between every update
 #define HISTORY 1 //how much time will be taken as history to keep last state change (HISTORY * TIME_WINDOW) Eg. 2 * 1h --> i keep 1h as history 
-#define JSON_PATH "./json/"
+#define JSON_PATH "/opt/lampp/htdocs/system/pageGenerator/data/"
 
 /* SIMULATION */
 
 //file: robotTree.h method: generateDummyTree()
 
-#define BORN_TIME 0 //time in minutes used to calc: ARRIVE_ISTANT = (CURRENT_TIME - BORN_TIME) 
-#define DUMMY 0 // set to '1' to create a dummy tree with following 2 parameters
-#define N_CLUSTERS 100 //cluster number in dummy tree
+#define BORN_TIME 19 //time in minutes used to calc: ARRIVE_ISTANT = (CURRENT_TIME - BORN_TIME) 
+#define DUMMY 1 // set to '1' to create a dummy tree with following 2 parameters
+#define N_CLUSTERS 1500 //cluster number in dummy tree
 #define N_ROBOTS 900 //robot number per cluster in dummy tree
-
+#define N_AREAS 2 //robot number per cluster in dummy tree
 

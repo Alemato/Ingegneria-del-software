@@ -1,5 +1,5 @@
 <?php
-
+    $timeStamp = round(microtime(true) * 1000);
 	// Set variabili ricevuti dall'ESB
 	$idArea = $_POST['ID_Area'];
 	$cluster = $_POST['ID_Cluster'];
@@ -14,18 +14,18 @@
 
 	// Parametri di connessione
 	$host    = "localhost";
-	$port    = 2222;
+	$port    = 222;
 
 	// Messaggio da inviare tramite socket
 	$separatore = ",";
-	$message = $idArea . $separatore . $cluster . $separatore . $nameRobot . $separatore . 
+	$message = $timeStamp . $separatore . $idArea . $separatore . $cluster . $separatore . $nameRobot . $separatore . 
 			   $s1 . $separatore . $s2 . $separatore . $s3 . $separatore . 
 			   $s4 . $separatore . $s5 . $separatore . $s6 . $separatore . $s7;
 
 	//echo $message;
 	
 	// Creazione Socket
-	$socket = socket_create(AF_INET, SOCK_STREAM, 0) or die("Impossibile creare il socket\n");
+	$socket = socket_create(AF_INET, SOCK_DGRAM, 0) or die("Impossibile creare il socket\n");
 
 	// Connessione al server su porta '2222' in localhost
 	$result = socket_connect($socket, $host, $port) or die("Impossibile connettersi al server\n");  

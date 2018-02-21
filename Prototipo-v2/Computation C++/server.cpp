@@ -40,7 +40,7 @@ concurrent_queue<Message*> messageQueue;
 void consumeMessage1(Message msg){
 
 	if(((general[msg.Id_Area])[msg.Id_Cluster]).find(msg.Name_Robot) != ((general[msg.Id_Area])[msg.Id_Cluster]).end()){
-		cout<<"il robot esiste! \n";
+		cout<<msg.Id_Area<<"-"<<msg.Id_Cluster<<"-"<<msg.Name_Robot<<" Updated. \n";
 		updateRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
 	}
 	else {
@@ -54,7 +54,7 @@ void consumeMessage1(Message msg){
 void consumeMessage2(Message msg){
 
 	if(((general[msg.Id_Area])[msg.Id_Cluster]).find(msg.Name_Robot) != ((general[msg.Id_Area])[msg.Id_Cluster]).end()){
-		cout<<"il robot esiste! \n";
+		cout<<msg.Id_Area<<"-"<<msg.Id_Cluster<<"-"<<msg.Name_Robot<<" Updated. \n";
 		updateRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
 	}
 	else {
@@ -68,7 +68,7 @@ void consumeMessage2(Message msg){
 void consumeMessage3(Message msg){
 
 	if(((general[msg.Id_Area])[msg.Id_Cluster]).find(msg.Name_Robot) != ((general[msg.Id_Area])[msg.Id_Cluster]).end()){
-		cout<<"il robot esiste! \n";
+		cout<<msg.Id_Area<<"-"<<msg.Id_Cluster<<"-"<<msg.Name_Robot<<" Updated. \n";
 		updateRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
 	}
 	else {
@@ -82,7 +82,7 @@ void consumeMessage3(Message msg){
 void consumeMessage4(Message msg){
 
 	if(((general[msg.Id_Area])[msg.Id_Cluster]).find(msg.Name_Robot) != ((general[msg.Id_Area])[msg.Id_Cluster]).end()){
-		cout<<"il robot esiste! \n";
+		cout<<msg.Id_Area<<"-"<<msg.Id_Cluster<<"-"<<msg.Name_Robot<<" Updated. \n";
 		updateRobot(msg.Id_Area,msg.Id_Cluster,msg.Name_Robot,stol(msg.timeStamp),msg);
 	}
 	else {
